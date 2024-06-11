@@ -6,6 +6,7 @@ import { ExternalLink, LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { ModeToggle } from "@/components/ui/them-toggle";
 
 type Props = {};
 
@@ -16,7 +17,7 @@ const NavBar = (props: Props) => {
 
   return (
     <>
-      <nav className="h-full p-4 border-b bg-white  flex items-center justify-end ">
+      <nav className="h-full p-4 border-b  flex items-center  justify-between md:justify-end ">
         <MobileSidebar />
         <div className="flex gap-2">
           {isTeacherPage ? (
@@ -27,10 +28,11 @@ const NavBar = (props: Props) => {
               </Button>
             </Link>
           ) : (
-            <Link href="/teacher/course">
+            <Link href="/teacher/courses">
               <Button variant="ghost">Teacher Mode</Button>
             </Link>
           )}
+          <ModeToggle />
           <UserButton />
         </div>
       </nav>

@@ -15,8 +15,6 @@ const SideBarLink = ({ icon: Icon, name, href }: SideBarLink) => {
   const pathname = usePathname();
 
   const isaActive = (pathname === "/" && href === "/") || pathname === href;
-  console.log(pathname === "/" && href === "/");
-  console.log("links", href);
   return (
     <>
       <Link
