@@ -17,7 +17,7 @@ const NavBar = (props: Props) => {
 
   return (
     <>
-      <nav className="h-full p-4 border-b  flex items-center  justify-between md:justify-end ">
+      <nav className="h-full p-4 border-b  flex items-center  justify-between md:justify-end z-10">
         <MobileSidebar />
         <div className="flex gap-2">
           {isTeacherPage ? (

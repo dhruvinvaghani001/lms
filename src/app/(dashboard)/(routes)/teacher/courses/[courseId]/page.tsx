@@ -5,6 +5,8 @@ import { auth } from '@clerk/nextjs/server'
 import { LayoutDashboard } from 'lucide-react'
 import TitleForm from './_components/TitleForm'
 import DescriptionForm from './_components/DescriptionForm'
+import ImageForm from './_components/ImageForm'
+import CategoryForm from './_components/CategoryForm'
 
 type Props = {}
 
@@ -21,6 +23,13 @@ const page = async ({ params }: { params: { courseId: string } }) => {
             id: params.courseId
         }
     })
+
+    const categories = await db.category.findMany({
+        orderBy: {
+            name: "asc"
+        }
+    })
+
     if (!course || course.userId != userId) {
         redirect("/");
     }
@@ -56,6 +65,10 @@ const page = async ({ params }: { params: { courseId: string } }) => {
                             <div className='flex gap-8 flex-col'>
                                 <TitleForm title={course.title} courseId={course.id} />
                                 <DescriptionForm description={course.description} courseId={course.id} />
+                                <ImageForm imageUrl={course.imageUrl} courseId={course.id} />
+                                <CategoryForm courseId={course.id} options={categories.map((category) => {
+                                    return { label: category.name, value: category.id }
+                                })} categoryId={course?.categoryId} />
                             </div>
                         </div>
 
