@@ -7,10 +7,10 @@ type Props = {};
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="h-full md:flex">
-      <section className="hidden h-full  md:flex">
+      <section className="hidden h-full  md:flex fixed">
         <SideBar />
       </section>
-      <section className="w-full md:w-[calc(100%_-_224px)]">
+      <section className="w-full md:w-[calc(100%_-_224px)] md:ml-56">
         <div className="h-[80px] fixed inset-y-0  w-full  md:w-[calc(100%_-_224px)] z-50">
           <NavBar />
         </div>

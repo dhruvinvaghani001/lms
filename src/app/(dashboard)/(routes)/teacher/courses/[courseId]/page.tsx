@@ -7,6 +7,8 @@ import TitleForm from './_components/TitleForm'
 import DescriptionForm from './_components/DescriptionForm'
 import ImageForm from './_components/ImageForm'
 import CategoryForm from './_components/CategoryForm'
+import PriceForm from './_components/PriceForm'
+import AttchmentForm from './_components/AttachmentForm'
 
 type Props = {}
 
@@ -21,6 +23,13 @@ const page = async ({ params }: { params: { courseId: string } }) => {
     const course = await db.course.findUnique({
         where: {
             id: params.courseId
+        },
+        include: {
+            attachmenst: {
+                orderBy: {
+                    createdAt: "desc",
+                }
+            }
         }
     })
 
@@ -71,7 +80,16 @@ const page = async ({ params }: { params: { courseId: string } }) => {
                                 })} categoryId={course?.categoryId} />
                             </div>
                         </div>
-
+                        <div>
+                            <div className="flex items-center gap-2 mb-8">
+                                <LayoutDashboard />
+                                <h2 className='text-xl'>Customize your Course</h2>
+                            </div>
+                            <div className='flex gap-8 flex-col'>
+                                <PriceForm courseId={course.id} price={course.price} />
+                                <AttchmentForm courseId={course.id} attachments={course.attachmenst} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

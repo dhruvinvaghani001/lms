@@ -22,16 +22,24 @@ export async function PATCH(
     const course = await db.course.update({
       where: {
         id: courseId,
+        userId: userId,
       },
       data: reqBody,
     });
-
     if (!course) {
       return NextResponse.json(
         { message: "course update error!" },
         { status: 500 }
       );
     }
+
+    if (course.userId !== userId) {
+      return NextResponse.json(
+        { message: " Unauthorised user" },
+        { status: 401 }
+      );
+    }
+
     return NextResponse.json({ message: "course update" }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
