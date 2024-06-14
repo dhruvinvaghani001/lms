@@ -20,11 +20,35 @@ export async function POST(
         { status: 401 }
       );
     }
+    const courseOwner = await db.course.findUnique({
+      where: {
+        userId: userId,
+        id: params.courseId,
+      },
+    });
+
+    if (!courseOwner) {
+      return NextResponse.json(
+        { message: "Unauthenticated user!" },
+        { status: 401 }
+      );
+    }
+
+    const lastChapter = await db.chapter.findFirst({
+      where: {
+        courseId: params.courseId,
+      },
+      orderBy: {
+        position: "desc",
+      },
+    });
+    const newPosition = lastChapter ? lastChapter?.position + 1 : 1;
 
     const chapter = await db.chapter.create({
       data: {
         title: title,
         courseId: params.courseId,
+        position: newPosition,
       },
     });
     console.log(chapter);

@@ -4,6 +4,8 @@ import { LayoutDashboard } from 'lucide-react'
 import { redirect } from 'next/navigation';
 import React from 'react'
 import TitleForm from './_components/TitleForm';
+import DescriptionForm from './_components/DescriptionForm';
+import IsFreeForm from './_components/IsFreeForm';
 
 
 
@@ -53,6 +55,8 @@ const Chapterpage = async ({ params }: { params: { courseId: string, chapterId: 
                             </div>
                             <div className='flex gap-8 flex-col'>
                                 <TitleForm chapterId={params.chapterId} courseId={params.courseId} title={chapter?.title} />
+                                <DescriptionForm chapterId={params.chapterId} courseId={params.courseId} description={chapter?.description} />
+                                <IsFreeForm chapterId={params.chapterId} courseId={params.courseId} isFree={chapter?.isFree} />
                             </div>
                         </div>
                         <div>

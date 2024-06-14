@@ -17,6 +17,20 @@ export async function PATCH(
         { status: 401 }
       );
     }
+    const courseOwner = await db.course.findUnique({
+      where: {
+        userId: userId,
+        id: params.courseId,
+      },
+    });
+
+    if (!courseOwner) {
+      return NextResponse.json(
+        { message: "Unauthenticated user!" },
+        { status: 401 }
+      );
+    }
+
     const chapter = await db.chapter.update({
       where: {
         id: chapterId,
