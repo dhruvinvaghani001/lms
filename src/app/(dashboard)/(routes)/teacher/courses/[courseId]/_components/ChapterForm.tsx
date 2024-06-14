@@ -16,6 +16,8 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { Chapter } from '@prisma/client';
 import { Badge } from '@/components/ui/badge';
+import { Reorder } from 'framer-motion';
+import DragableChapterList from './DragableChapterList';
 
 interface ChapterFormProps {
     chapters: Chapter[],
@@ -32,6 +34,7 @@ const formSchema = z.object({
 const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
     const router = useRouter();
     const [isEditing, setIsEditting] = useState(false);
+    const [items, setItems] = useState([...chapters]);
 
     const toggleEdit = () => {
         setIsEditting(prev => !prev);
@@ -53,11 +56,14 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
             console.log(response);
             toggleEdit();
             router.refresh();
+            form.reset();
         } catch (error: any) {
             console.log("chapter Added!", error);
             toast.error(error?.message);
         }
     }
+
+    const ch = chapters.map((chap) => chap.id);
 
     return (
         <div>
@@ -76,25 +82,33 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
                         </Button>
                     </div>
                     <div className="form mt-2">
-                        {
+                        {/* {
 
-                            chapters.length > 0 && <div className='mb-3 flex flex-col gap-2'>{chapters.map((chapter, index) => {
-                                return <div key={index} className='flex bg-muted items-center p-2 px-4 rounded-lg justify-between' >
-                                    <div className='flex items-center gap-2'>
-                                        <BookCheck width={20} />
-                                        {chapter.title}
-                                    </div>
-                                    <div className='flex items-center gap-2'>
-                                        {
-                                            chapter.isPublished ? <Badge variant="default">Published</Badge> : <Badge variant="default">Draft</Badge>
-                                        }
-                                        <Link href={`/teacher/courses/${courseId}/chapter/${chapter.id}`}>
-                                            <Pen width={18} />
-                                        </Link>
-                                    </div>
-                                </div>
-                            })}</div>
-                        }
+                            chapters.length > 0 && <div className='mb-3 flex flex-col gap-2'> <Reorder.Group axis="y" values={items} onReorder={setItems} className='flex flex-col gap-2'>
+                                {
+
+                                    items.map((chapter, index) => {
+                                        return <Reorder.Item key={index} value={chapter}><div className='flex bg-muted items-center p-2 px-4 rounded-lg justify-between' >
+                                            <div className='flex items-center gap-2'>
+                                                <BookCheck width={20} />
+                                                {chapter.title}
+                                            </div>
+                                            <div className='flex items-center gap-2'>
+                                                {
+                                                    chapter.isPublished ? <Badge variant="default">Published</Badge> : <Badge variant="default">Draft</Badge>
+                                                }
+                                                <Link href={`/teacher/courses/${courseId}/chapter/${chapter.id}`}>
+                                                    <Pen width={18} />
+                                                </Link>
+                                            </div>
+                                        </div>
+                                        </Reorder.Item>
+                                    })}
+
+                            </Reorder.Group>
+                            </div>
+                        } */}
+                        <DragableChapterList chapters={chapters} courseId={courseId} />
                         {
                             isEditing && <Form {...form}>
                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -109,7 +123,7 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
                                                 <FormDescription>
                                                     What will be name of your chapters ?
                                                 </FormDescription>
-                                                <FormMessage />
+
                                             </FormItem>
                                         )}
                                     />
@@ -119,6 +133,9 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
                                 </form>
                             </Form>
                         }
+                        <div className='text-primary mt-3'>
+                            <p className='font-normal'>Drag and Drop to reorder Chapters</p>
+                        </div>
                     </div>
                 </div>
             </Card >

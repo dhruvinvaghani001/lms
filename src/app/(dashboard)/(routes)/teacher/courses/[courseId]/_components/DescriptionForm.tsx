@@ -16,7 +16,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { Textarea } from '@/components/ui/textarea';
 
-interface TitleFormProps {
+interface DescriptionFormProps {
     description: string | null,
     courseId: string,
 }
@@ -28,7 +28,7 @@ const formSchema = z.object({
     }),
 })
 
-const DescriptionForm = ({ description, courseId }: TitleFormProps) => {
+const DescriptionForm = ({ description, courseId }: DescriptionFormProps) => {
     const router = useRouter();
     const [isEditing, setIsEditting] = useState(false);
 
