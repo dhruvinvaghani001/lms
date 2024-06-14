@@ -34,7 +34,16 @@ const formSchema = z.object({
 const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
     const router = useRouter();
     const [isEditing, setIsEditting] = useState(false);
-    const [items, setItems] = useState([...chapters]);
+    const [items, setItems] = useState(chapters);
+    const [loading, setLoading] = useState(false);
+
+    let isOrderChanged = false;
+    for (let index = 0; index < chapters.length; index++) {
+        if (chapters[index].id !== items[index].id) {
+            isOrderChanged = true;
+        }
+    }
+
 
     const toggleEdit = () => {
         setIsEditting(prev => !prev);
@@ -63,7 +72,19 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
         }
     }
 
-    const ch = chapters.map((chap) => chap.id);
+    const savePosition = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.patch(`/api/courses/${courseId}/position`, { chapters: items });
+            toast.success(response.data?.message);
+            router.refresh();
+        } catch (error: any) {
+            console.log("Eror while reordring", error);
+            toast.error(error?.message);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <div>
@@ -82,33 +103,7 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
                         </Button>
                     </div>
                     <div className="form mt-2">
-                        {/* {
-
-                            chapters.length > 0 && <div className='mb-3 flex flex-col gap-2'> <Reorder.Group axis="y" values={items} onReorder={setItems} className='flex flex-col gap-2'>
-                                {
-
-                                    items.map((chapter, index) => {
-                                        return <Reorder.Item key={index} value={chapter}><div className='flex bg-muted items-center p-2 px-4 rounded-lg justify-between' >
-                                            <div className='flex items-center gap-2'>
-                                                <BookCheck width={20} />
-                                                {chapter.title}
-                                            </div>
-                                            <div className='flex items-center gap-2'>
-                                                {
-                                                    chapter.isPublished ? <Badge variant="default">Published</Badge> : <Badge variant="default">Draft</Badge>
-                                                }
-                                                <Link href={`/teacher/courses/${courseId}/chapter/${chapter.id}`}>
-                                                    <Pen width={18} />
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        </Reorder.Item>
-                                    })}
-
-                            </Reorder.Group>
-                            </div>
-                        } */}
-                        <DragableChapterList chapters={chapters} courseId={courseId} />
+                        {chapters.length > 0 && <DragableChapterList courseId={courseId} items={items} setItems={setItems} />}
                         {
                             isEditing && <Form {...form}>
                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -133,8 +128,11 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
                                 </form>
                             </Form>
                         }
-                        <div className='text-primary mt-3'>
+                        <div className='text-primary mt-3 flex items-center justify-between'>
                             <p className='font-normal'>Drag and Drop to reorder Chapters</p>
+                            {
+                                chapters.length >= 2 && <Button variant="default" disabled={!isOrderChanged || loading} onClick={savePosition}>Save order</Button>
+                            }
                         </div>
                     </div>
                 </div>

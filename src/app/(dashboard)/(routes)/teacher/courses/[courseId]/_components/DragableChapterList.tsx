@@ -7,13 +7,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface DragableChaptersProps {
-    chapters: Chapter[];
+    items: Chapter[];
     courseId: string;
+    setItems: (newItems: Chapter[]) => void;
 }
 
-function DragableChapterList({ chapters, courseId }: DragableChaptersProps) {
+function DragableChapterList({ items, setItems, courseId, }: DragableChaptersProps) {
 
-    const [items, setItems] = useState(chapters);
+    // const [items, setItems] = useState(chapters);
+
+
     return (
         <Reorder.Group axis="y" onReorder={setItems} values={items}>
             {items.map((chapter) => (
