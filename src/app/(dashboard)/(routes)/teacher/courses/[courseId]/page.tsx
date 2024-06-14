@@ -9,6 +9,8 @@ import ImageForm from './_components/ImageForm'
 import CategoryForm from './_components/CategoryForm'
 import PriceForm from './_components/PriceForm'
 import AttchmentForm from './_components/AttachmentForm'
+import ChapterForm from './_components/ChapterForm'
+
 
 type Props = {}
 
@@ -28,6 +30,11 @@ const page = async ({ params }: { params: { courseId: string } }) => {
             attachmenst: {
                 orderBy: {
                     createdAt: "desc",
+                }
+            },
+            chapters: {
+                orderBy: {
+                    position: "asc",
                 }
             }
         }
@@ -86,6 +93,7 @@ const page = async ({ params }: { params: { courseId: string } }) => {
                                 <h2 className='text-xl'>Customize your Course</h2>
                             </div>
                             <div className='flex gap-8 flex-col'>
+                                <ChapterForm chapters={course.chapters} courseId={course.id} />
                                 <PriceForm courseId={course.id} price={course.price} />
                                 <AttchmentForm courseId={course.id} attachments={course.attachmenst} />
                             </div>
