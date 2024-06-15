@@ -22,8 +22,15 @@ const Chapterpage = async ({ params }: { params: { courseId: string, chapterId: 
         where: {
             id: params.chapterId,
             courseId: params.courseId,
+        },
+        include: {
+            muxData: {
+
+
+            }
         }
     })
+
 
     if (!chapter) {
         redirect(`/teacher/courses`);
@@ -66,7 +73,7 @@ const Chapterpage = async ({ params }: { params: { courseId: string, chapterId: 
                                 <h2 className='text-xl'>Customize your Course</h2>
                             </div>
                             <div className='flex gap-8 flex-col'>
-                                <ChapterVideoForm courseId={params.courseId} chapterId={params.chapterId} videoUrl={chapter.videoUrl} />
+                                <ChapterVideoForm courseId={params.courseId} chapterId={params.chapterId} videoUrl={chapter.videoUrl} muxData={chapter.muxData} />
                             </div>
                         </div>
                     </div>

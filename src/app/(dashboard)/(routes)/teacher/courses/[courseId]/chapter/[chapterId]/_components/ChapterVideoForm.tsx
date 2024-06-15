@@ -8,7 +8,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Button } from '@/components/ui/button';
 import { ImageIcon, PenLine, PlusCircle, Video } from 'lucide-react';
 import { Card } from '@/components/ui/card';
-
+import MuxPlayer from '@mux/mux-player-react';
 
 import toast from 'react-hot-toast';
 
@@ -17,12 +17,13 @@ import { useRouter } from 'next/navigation';
 import { Textarea } from '@/components/ui/textarea';
 import FielUpload from '@/components/FielUpload';
 import Image from 'next/image';
+import { MuxData } from '@prisma/client';
 
 interface ChapterVideoForm {
     videoUrl: string | null,
     courseId: string,
     chapterId: string,
-    muxData?: string | null;
+    muxData: MuxData | undefined;
 }
 
 
@@ -32,7 +33,7 @@ const formSchema = z.object({
     }),
 })
 
-const ChapterVideoForm = ({ videoUrl, courseId, chapterId }: ChapterVideoForm) => {
+const ChapterVideoForm = ({ videoUrl, courseId, chapterId, muxData }: ChapterVideoForm) => {
     const router = useRouter();
     const [isEditing, setIsEditting] = useState(false);
 
@@ -67,7 +68,7 @@ const ChapterVideoForm = ({ videoUrl, courseId, chapterId }: ChapterVideoForm) =
             <Card className='w-full'>
                 <div className='bg-card rounded-md p-4'>
                     <div className='flex justify-between gap-2 items-center'>
-                        Course Image
+                        Chapter Video
                         <Button variant="ghost" className='flex gap-2' onClick={toggleEdit}>
                             {
                                 isEditing && <>Cancel</>
@@ -85,6 +86,9 @@ const ChapterVideoForm = ({ videoUrl, courseId, chapterId }: ChapterVideoForm) =
                             !isEditing && !videoUrl && <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
                                 <Video className='h-10 w-10 text-slate-500' />
                             </div>
+                        }
+                        {
+                            !isEditing && videoUrl && <><MuxPlayer playbackId={muxData?.playbackId} /></>
                         }
                         {
                             isEditing && <FielUpload
