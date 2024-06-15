@@ -15,6 +15,8 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { Textarea } from '@/components/ui/textarea';
+import Editor from './Editor';
+import Preview from './Preview';
 
 interface DescriptionFormProps {
     description: string | null,
@@ -77,7 +79,7 @@ const DescriptionForm = ({ description, courseId, chapterId }: DescriptionFormPr
                     </div>
                     <div className="form mt-2">
                         {
-                            !isEditing && <>{description || <p className='italic font-semibold'>No description</p>}</>
+                            !isEditing && <>{description && <Preview value={description} /> || <p className='italic font-semibold'>No description</p>}</>
                         }
                         {
                             isEditing && <Form {...form}>
@@ -88,7 +90,7 @@ const DescriptionForm = ({ description, courseId, chapterId }: DescriptionFormPr
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Textarea disabled={isSubmitting} placeholder="e.g This course about" {...field} />
+                                                    <Editor {...field} />
                                                 </FormControl>
                                                 <FormDescription>
                                                     What&apos;s the description of course
