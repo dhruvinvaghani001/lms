@@ -25,6 +25,9 @@ function DragableChapterList({ items, setItems, courseId, }: DragableChaptersPro
                         </div>
                         <div className='flex items-center gap-2'>
                             {
+                                chapter.isFree && <Badge variant="default">Free</Badge>
+                            }
+                            {
                                 chapter.isPublished ? <Badge variant="default">Published</Badge> : <Badge variant="default">Draft</Badge>
                             }
                             <Link href={`/teacher/courses/${courseId}/chapter/${chapter.id}`}>
