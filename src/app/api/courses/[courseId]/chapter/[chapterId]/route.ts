@@ -52,7 +52,7 @@ export async function PATCH(
       );
     }
 
-    if (reqBody.videoUrl !== null) {
+    if (reqBody.videoUrl) {
       try {
         const existingMuxdata = await db.muxData.findFirst({
           where: {
