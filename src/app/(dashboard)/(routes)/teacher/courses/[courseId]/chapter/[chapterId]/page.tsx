@@ -6,6 +6,7 @@ import React from 'react'
 import TitleForm from './_components/TitleForm';
 import DescriptionForm from './_components/DescriptionForm';
 import IsFreeForm from './_components/IsFreeForm';
+import ChapterVideoForm from './_components/ChapterVideoForm';
 
 
 
@@ -65,7 +66,7 @@ const Chapterpage = async ({ params }: { params: { courseId: string, chapterId: 
                                 <h2 className='text-xl'>Customize your Course</h2>
                             </div>
                             <div className='flex gap-8 flex-col'>
-
+                                <ChapterVideoForm courseId={params.courseId} chapterId={params.chapterId} videoUrl={chapter.videoUrl} />
                             </div>
                         </div>
                     </div>
