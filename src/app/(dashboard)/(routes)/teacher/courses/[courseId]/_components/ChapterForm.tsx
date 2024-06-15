@@ -39,7 +39,7 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
 
     let isOrderChanged = false;
     for (let index = 0; index < chapters.length; index++) {
-        if (chapters[index].id !== items[index].id) {
+        if (chapters[index]?.id !== items[index]?.id) {
             isOrderChanged = true;
         }
     }
@@ -62,7 +62,8 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
         try {
             const response = await axios.post(`/api/courses/${courseId}/chapter`, values);
             toast.success(response.data.message);
-            console.log(response);
+            console.log(response.data.data.chapter);
+            setItems([...items, response.data.data.chapter]);
             toggleEdit();
             router.refresh();
             form.reset();

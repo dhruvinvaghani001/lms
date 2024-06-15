@@ -14,9 +14,6 @@ interface DragableChaptersProps {
 
 function DragableChapterList({ items, setItems, courseId, }: DragableChaptersProps) {
 
-    // const [items, setItems] = useState(chapters);
-
-
     return (
         <Reorder.Group axis="y" onReorder={setItems} values={items}>
             {items.map((chapter) => (

@@ -61,7 +61,10 @@ export async function POST(
       );
     }
 
-    return NextResponse.json({ message: "chapter Added!" }, { status: 200 });
+    return NextResponse.json(
+      { message: "chapter Added!", data: { chapter } },
+      { status: 200 }
+    );
   } catch (error) {
     console.log("chapter creation error", error);
     return NextResponse.json(
