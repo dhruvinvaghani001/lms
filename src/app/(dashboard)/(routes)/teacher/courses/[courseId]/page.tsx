@@ -2,7 +2,7 @@ import { db } from '@/lib/db'
 import React from 'react'
 import { redirect } from 'next/navigation'
 import { auth } from '@clerk/nextjs/server'
-import { LayoutDashboard } from 'lucide-react'
+import { Backpack, LayoutDashboard, MoveLeft } from 'lucide-react'
 import TitleForm from './_components/TitleForm'
 import DescriptionForm from './_components/DescriptionForm'
 import ImageForm from './_components/ImageForm'
@@ -12,6 +12,8 @@ import AttchmentForm from './_components/AttachmentForm'
 import ChapterForm from './_components/ChapterForm'
 import CourseAction from './_components/CourseAction'
 import { Course } from '@prisma/client'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 
 
@@ -70,7 +72,14 @@ const page = async ({ params }: { params: { courseId: string } }) => {
             <div className="container mt-28">
                 <div className="course__title flex items-center justify-between">
                     <div>
-                        <h1 className='text-2xl font-bold '>Course Setup</h1>
+                        <div>
+                            <Button variant="ghost">
+                                <Link href="/teacher/courses/" className='flex gap-4 items-center justify-normal
+                                '> <MoveLeft></MoveLeft> Back to courses page </Link>
+                            </Button>
+
+                        </div>
+                        <h1 className='text-2xl font-bold mt-8'>Course Setup</h1>
                         <p className="text-base font-semibold mt-1">complete all fields <span>{`(${completedFields}/${totalFields})`}</span></p>
                     </div>
                     <CourseAction disabled={!isCompleted} isPublished={course.isPublished || false} courseId={params.courseId} />
@@ -79,6 +88,7 @@ const page = async ({ params }: { params: { courseId: string } }) => {
 
                     <div className='gap-2 md:grid md:grid-cols-2 md:gap-6'>
                         <div>
+
                             <div className="flex items-center gap-2 mb-8">
                                 <LayoutDashboard />
                                 <h2 className='text-xl'>Customize your Course</h2>
@@ -112,3 +122,4 @@ const page = async ({ params }: { params: { courseId: string } }) => {
 }
 
 export default page;
+

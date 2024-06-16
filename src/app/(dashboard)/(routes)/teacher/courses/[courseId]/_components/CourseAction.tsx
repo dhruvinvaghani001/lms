@@ -35,8 +35,8 @@ const CourseAction = ({ courseId, isPublished, disabled }: ChapterActionProps) =
             console.log(resposne);
 
             toast.success(resposne?.data?.message);
+            router.push('/teacher/courses');
             router.refresh();
-            router.push(`/teacher/courses`);
         } catch (error: any) {
             console.log("delete chapter error:", error);
             toast.error(error?.message);

@@ -1,6 +1,6 @@
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs/server';
-import { LayoutDashboard } from 'lucide-react'
+import { LayoutDashboard, MoveLeft } from 'lucide-react'
 import { redirect } from 'next/navigation';
 import React from 'react'
 import TitleForm from './_components/TitleForm';
@@ -10,6 +10,7 @@ import ChapterVideoForm from './_components/ChapterVideoForm';
 import Banner from '@/components/Banner';
 import { Button } from '@/components/ui/button';
 import ChapterAction from './_components/ChapterAction';
+import Link from 'next/link';
 
 
 
@@ -58,7 +59,14 @@ const Chapterpage = async ({ params }: { params: { courseId: string, chapterId: 
             <div className="container mt-28">
                 <div className="course__title flex items-center justify-between">
                     <div>
-                        <h1 className='text-2xl font-bold '>Chapter Setup</h1>
+                        <div>
+                            <Button variant="ghost">
+                                <Link href={`/teacher/courses/${params.courseId}`} className='flex gap-4 items-center justify-normal
+                                '> <MoveLeft></MoveLeft> Back to course setup </Link>
+                            </Button>
+
+                        </div>
+                        <h1 className='text-2xl font-bold mt-10'>Chapter Setup</h1>
                         <p className="text-base font-semibold mt-1">complete all fields <span>{`(${completedFields}/${totalFields})`}</span></p>
                     </div>
                     <ChapterAction disabled={!isComplete} courseId={params.courseId} chapterId={params.chapterId} isPublished={chapter.isPublished} />
