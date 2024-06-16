@@ -100,3 +100,76 @@ export async function PATCH(
     );
   }
 }
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: { courseId: string; chapterId: string } }
+) {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json(
+        { message: "Unauthenticated User!" },
+        { status: 401 }
+      );
+    }
+    const courseOwner = await db.course.findUnique({
+      where: {
+        userId: userId,
+        id: params.courseId,
+      },
+    });
+
+    if (!courseOwner) {
+      return NextResponse.json(
+        { message: "Unauthenticated user!" },
+        { status: 401 }
+      );
+    }
+
+    const chapter = await db.chapter.findFirst({
+      where: {
+        id: params.chapterId,
+      },
+      include: {
+        muxData: {},
+      },
+    });
+
+    if (chapter?.videoUrl) {
+      await mux.video.assets.delete(chapter.muxData?.assetId || "");
+    }
+
+    await db.chapter.delete({
+      where: {
+        id: params.chapterId,
+      },
+    });
+
+    const publishedChapterInCourse = await db.chapter.findMany({
+      where: {
+        courseId: params.courseId,
+        isPublished: true,
+      },
+    });
+
+    if (!publishedChapterInCourse.length) {
+      await db.course.update({
+        where: {
+          id: params.courseId,
+        },
+        data: {
+          isPublished: false,
+        },
+      });
+    }
+
+    return NextResponse.json({ message: "chapter ddeleted!" }, { status: 200 });
+  } catch (error) {
+    console.log("delete chapter error :", error);
+    return NextResponse.json(
+      { message: "course not deleted!" },
+      { status: 500 }
+    );
+  }
+}
