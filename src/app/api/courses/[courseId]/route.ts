@@ -1,6 +1,12 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
+import Mux from "@mux/mux-node";
 import { NextResponse } from "next/server";
+
+const mux = new Mux({
+  tokenId: process.env.MUX_TOKEN_ID,
+  tokenSecret: process.env.MUX_TOKEN_SECRET,
+});
 
 export async function PATCH(
   request: Request,
@@ -67,8 +73,20 @@ export async function DELETE(
         userId: userId,
         id: params.courseId,
       },
+      include: {
+        chapters: {
+          include: {
+            muxData: true,
+          },
+        },
+      },
     });
 
+    for (const chapter of courseOwner?.chapters) {
+      if (chapter.muxData?.assetId) {
+        await mux.video.assets.delete(chapter.muxData?.assetId || "");
+      }
+    }
     if (!courseOwner) {
       return NextResponse.json(
         { message: "Unauthenticated User" },
