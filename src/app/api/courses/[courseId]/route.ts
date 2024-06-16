@@ -48,3 +48,46 @@ export async function PATCH(
     );
   }
 }
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: { courseId: string } }
+) {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json(
+        { message: "Unauthenticated User" },
+        { status: 401 }
+      );
+    }
+
+    const courseOwner = await db.course.findUnique({
+      where: {
+        userId: userId,
+        id: params.courseId,
+      },
+    });
+
+    if (!courseOwner) {
+      return NextResponse.json(
+        { message: "Unauthenticated User" },
+        { status: 401 }
+      );
+    }
+
+    await db.course.delete({
+      where: {
+        id: params.courseId,
+      },
+    });
+
+    return NextResponse.json({ message: "course deleted!" }, { status: 200 });
+  } catch (error) {
+    console.log("course delete!", error);
+    return NextResponse.json(
+      { message: "course deleted error!" },
+      { status: 500 }
+    );
+  }
+}

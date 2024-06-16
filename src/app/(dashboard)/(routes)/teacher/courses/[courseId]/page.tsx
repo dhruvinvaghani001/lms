@@ -10,9 +10,10 @@ import CategoryForm from './_components/CategoryForm'
 import PriceForm from './_components/PriceForm'
 import AttchmentForm from './_components/AttachmentForm'
 import ChapterForm from './_components/ChapterForm'
+import CourseAction from './_components/CourseAction'
+import { Course } from '@prisma/client'
 
 
-type Props = {}
 
 const page = async ({ params }: { params: { courseId: string } }) => {
     const { userId } = auth();
@@ -60,15 +61,19 @@ const page = async ({ params }: { params: { courseId: string } }) => {
     const totalFields = requiredFields.length;
     const completedFields = requiredFields.filter((item) => item !== null).length;
 
+    const isCompleted = requiredFields.every(Boolean);
 
     console.log(completedFields);
 
     return (
         <div className=''>
             <div className="container mt-28">
-                <div className="course__title">
-                    <h1 className='text-2xl font-bold '>Course Setup</h1>
-                    <p className="text-base font-semibold mt-1">complete all fields <span>{`(${completedFields}/${totalFields})`}</span></p>
+                <div className="course__title flex items-center justify-between">
+                    <div>
+                        <h1 className='text-2xl font-bold '>Course Setup</h1>
+                        <p className="text-base font-semibold mt-1">complete all fields <span>{`(${completedFields}/${totalFields})`}</span></p>
+                    </div>
+                    <CourseAction disabled={!isCompleted} isPublished={course.isPublished || false} courseId={params.courseId} />
                 </div>
                 <div className="updated mt-8">
 
@@ -77,6 +82,7 @@ const page = async ({ params }: { params: { courseId: string } }) => {
                             <div className="flex items-center gap-2 mb-8">
                                 <LayoutDashboard />
                                 <h2 className='text-xl'>Customize your Course</h2>
+
                             </div>
                             <div className='flex gap-8 flex-col'>
                                 <TitleForm title={course.title} courseId={course.id} />
