@@ -68,9 +68,13 @@ const ImageForm = ({ imageUrl, courseId }: ImageFormProps) => {
                         Course Image
                         <Button variant="ghost" className='flex gap-2' onClick={toggleEdit}>
                             {
-                                (!isEditing && imageUrl) == true ? <>
-                                    <PenLine />
-                                    Edit Image</> : <><PlusCircle />Add an Image</>
+                                isEditing && <>Cancel</>
+                            }
+                            {
+                                !isEditing && !imageUrl && <><PlusCircle />Add A Image</>
+                            }
+                            {
+                                !isEditing && imageUrl && <><PenLine />Edit Image</>
                             }
                         </Button>
                     </div>

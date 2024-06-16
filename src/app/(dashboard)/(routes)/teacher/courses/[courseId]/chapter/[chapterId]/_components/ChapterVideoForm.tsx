@@ -23,7 +23,7 @@ interface ChapterVideoForm {
     videoUrl: string | null,
     courseId: string,
     chapterId: string,
-    muxData: MuxData | undefined;
+    muxData: MuxData | null;
 }
 
 
@@ -88,7 +88,7 @@ const ChapterVideoForm = ({ videoUrl, courseId, chapterId, muxData }: ChapterVid
                             </div>
                         }
                         {
-                            !isEditing && videoUrl && <><MuxPlayer playbackId={muxData?.playbackId} /></>
+                            !isEditing && videoUrl && <><MuxPlayer playbackId={muxData?.playbackId || undefined} /></>
                         }
                         {
                             isEditing && <FielUpload
