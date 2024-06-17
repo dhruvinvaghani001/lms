@@ -20,7 +20,7 @@ const SideBarLink = ({ icon: Icon, name, href }: SideBarLink) => {
       <Link
         href={href}
         className={cn(
-          "px-4 flex gap-2 w-full py-4 duration-400 hover:bg-muted font-bold text-slate-500",
+          "px-4 flex gap-2 w-full py-8 duration-400 hover:bg-muted font-bold text-slate-500",
           isaActive && "bg-border hover:bg-secondary border-r-4 border-primary"
         )}
       >

@@ -20,14 +20,18 @@ const NavBar = (props: Props) => {
 
   return (
     <>
-      <nav className={cn("h-full p-4 border-b  bg-primary-foreground flex items-center  justify-end   z-10",
-        isSearchPage && "justify-between"
-      )}>
-
+      <nav
+        className={cn(
+          "h-full p-4 border-b  bg-primary-foreground flex items-center  justify-between md:justify-end   z-10",
+          isSearchPage && "justify-between"
+        )}
+      >
         <MobileSidebar />
-        {
-          isSearchPage && <><SearchInput /></>
-        }
+        {isSearchPage && (
+          <>
+            <SearchInput />
+          </>
+        )}
 
         <div className="flex gap-2">
           {isTeacherPage ? (
