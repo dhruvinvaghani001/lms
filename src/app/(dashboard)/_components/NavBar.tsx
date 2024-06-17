@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ModeToggle } from "@/components/ui/them-toggle";
+import SearchInput from "./SearchInput";
+import { cn } from "@/lib/utils";
 
 type Props = {};
 
@@ -14,11 +16,19 @@ const NavBar = (props: Props) => {
   const pathname = usePathname();
   const isTeacherPage = pathname?.startsWith("/teacher");
   const isPLayerPage = pathname?.includes("/chapter");
+  const isSearchPage = pathname === "/search";
 
   return (
     <>
-      <nav className="h-full p-4 border-b  bg-primary-foreground flex items-center  justify-between md:justify-end z-10">
+      <nav className={cn("h-full p-4 border-b  bg-primary-foreground flex items-center  justify-end   z-10",
+        isSearchPage && "justify-between"
+      )}>
+
         <MobileSidebar />
+        {
+          isSearchPage && <><SearchInput /></>
+        }
+
         <div className="flex gap-2">
           {isTeacherPage ? (
             <Link href="/">
