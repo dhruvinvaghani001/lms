@@ -9,7 +9,7 @@ interface CourseCardProps {
   title: string;
   imageUrl: string;
   numberOfChapter: number | 0;
-  price: number;
+  price: number | null;
   progress: number | null;
   category: string;
 }
