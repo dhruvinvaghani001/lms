@@ -213,3 +213,6 @@
 .ql-container {
   font-size: 16px !important;
 }
+.ql-editor {
+  padding: 0px !important;
+}

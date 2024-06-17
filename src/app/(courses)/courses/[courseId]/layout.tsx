@@ -1,12 +1,9 @@
 import React from "react";
-import NavBar from "../../../(dashboard)/_components/NavBar";
-import SideBar from "../../../(dashboard)/_components/SideBar";
 import CourseSidebar from "../_components/CourseSidebar";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { getUserProgress } from "@/actions/get-userprogress";
-import CourseNavBar from "../_components/CourseNavbar";
 import CourseNavbar from "../_components/CourseNavbar";
 interface CourseLayoutProps {
   children: React.ReactNode;
@@ -61,7 +58,7 @@ const CourseLayout = async ({ children, params }: CourseLayoutProps) => {
         <div className="h-[80px] fixed inset-y-0  w-full  md:w-[calc(100%_-_224px)] z-50">
           <CourseNavbar course={course} progress={userProgressPercentage} />
         </div>
-        <main className="mt-[80px] h-[calc(100%_-_80px)]">{children}</main>
+        <main className="mt-[80px] h-[calc(100vh_-_80px)]">{children}</main>
       </section>
     </main>
   );
