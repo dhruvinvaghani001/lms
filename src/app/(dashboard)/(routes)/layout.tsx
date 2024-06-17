@@ -14,7 +14,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="h-[80px] fixed inset-y-0  w-full  md:w-[calc(100%_-_224px)] z-50">
           <NavBar />
         </div>
-        <main className="mt-[80px] h-[calc(100%_-_80px)]">{children}</main>
+        <main className="mt-[80px] h-[calc(100%_-_80px)] pb-10">
+          {children}
+        </main>
       </section>
     </main>
   );

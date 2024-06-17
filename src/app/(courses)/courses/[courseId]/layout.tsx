@@ -58,7 +58,7 @@ const CourseLayout = async ({ children, params }: CourseLayoutProps) => {
         <div className="h-[80px] fixed inset-y-0  w-full  md:w-[calc(100%_-_224px)] z-50">
           <CourseNavbar course={course} progress={userProgressPercentage} />
         </div>
-        <main className="mt-[80px] h-[calc(100vh_-_80px)]">{children}</main>
+        <main className="mt-[80px] h-[calc(100%_-_80px)]">{children}</main>
       </section>
     </main>
   );
