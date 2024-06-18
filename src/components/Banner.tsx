@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 const bannerVariant = cva("border text-sm p-4 text-center flex items-center w-full", {
     variants: {
         variant: {
-            warning: "bg-yellow-200/80 border-yellow-30 text-primary",
+            warning: "bg-yellow-400/80 border-yellow-30 text-primary",
             success: "bg-emerald-700 border-emerald-800 text-secondary"
         }
     },

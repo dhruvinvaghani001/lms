@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, PlusCircle } from "lucide-react";
 import formatPrice from "@/lib/formatPrice";
 import Preview from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapter/[chapterId]/_components/Preview";
+import EnrollButton from "./_components/EnrollButton";
 
 const page = async ({
   params,
@@ -38,7 +39,7 @@ const page = async ({
   console.log("hello");
   console.log(attchmensts);
   return (
-    <div className="pb-16 px-4">
+    <div className="pb-16">
       {userProgrss?.isCompleted && (
         <Banner variant="success" label="you alredy completed this chapter" />
       )}
@@ -60,7 +61,7 @@ const page = async ({
             title={chapter?.title}
           />
         </div>
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex flex-col md:flex-row items-start space-y-4  md:items-center justify-between mt-4 ">
           {purchase ? (
             <>
               <p className="text-xl font-bold ">{chapter?.title}</p>
@@ -72,9 +73,7 @@ const page = async ({
           ) : (
             <>
               <p className="text-xl font-bold ">{chapter?.title}</p>
-              <Button variant="default">
-                Enroll For {formatPrice(course?.price || 0)}
-              </Button>
+              <EnrollButton price={course?.price} courseId={params.courseId} />
             </>
           )}
         </div>
