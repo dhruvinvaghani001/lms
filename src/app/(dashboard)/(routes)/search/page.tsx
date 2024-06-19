@@ -8,39 +8,34 @@ import CourseList from "./_components/CourseList";
 
 interface SearchPageProps {
   searchParams: {
-    title: string,
-    categoryId: string,
-  }
+    title: string;
+    categoryId: string;
+  };
 }
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
-
   const { userId } = auth();
   if (!userId) {
     redirect("/");
   }
 
-
   const categories = await db.category.findMany({
     orderBy: {
       name: "asc",
-    }
-  })
-
+    },
+  });
 
   const courses = await getCourses({ userId: userId, ...searchParams });
-
-  console.log("courses");
-  console.log(courses);
-
-  return <div>
+  return (
     <div>
-      <CategoryList items={categories} />
+      <div>
+        <CategoryList items={categories} />
+      </div>
+      <div className="p-6">
+        <CourseList items={courses} />
+      </div>
     </div>
-    <div className="p-6">
-      <CourseList items={courses} />
-    </div>
-  </div>;
+  );
 };
 
 export default SearchPage;

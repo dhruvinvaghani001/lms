@@ -81,10 +81,11 @@ export async function DELETE(
         },
       },
     });
-
-    for (const chapter of courseOwner?.chapters) {
-      if (chapter.muxData?.assetId) {
-        await mux.video.assets.delete(chapter.muxData?.assetId || "");
+    if (courseOwner) {
+      for (const chapter of courseOwner?.chapters) {
+        if (chapter.muxData?.assetId) {
+          await mux.video.assets.delete(chapter.muxData?.assetId);
+        }
       }
     }
     if (!courseOwner) {

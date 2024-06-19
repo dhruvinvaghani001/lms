@@ -42,7 +42,7 @@ export async function POST(
         position: "desc",
       },
     });
-    const newPosition = lastChapter ? lastChapter?.position + 1 : 1;
+    const newPosition = lastChapter?.position ? lastChapter?.position + 1 : 1;
 
     const chapter = await db.chapter.create({
       data: {

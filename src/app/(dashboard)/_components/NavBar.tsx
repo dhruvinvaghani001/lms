@@ -23,7 +23,7 @@ const NavBar = (props: Props) => {
       <nav
         className={cn(
           "h-full p-4 border-b  bg-primary-foreground flex items-center  justify-between md:justify-end   z-10",
-          isSearchPage && "justify-between"
+          isSearchPage && "justify-between md:justify-between"
         )}
       >
         <MobileSidebar />

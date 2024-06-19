@@ -4,12 +4,8 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";
 import VideoPlayer from "./_components/VideoPlayer";
-import { Button } from "@/components/ui/button";
-import { CheckCircle, PlusCircle } from "lucide-react";
-import formatPrice from "@/lib/formatPrice";
 import Preview from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapter/[chapterId]/_components/Preview";
 import EnrollButton from "./_components/EnrollButton";
-import UserProgressBar from "@/components/UserProgressBar";
 import CourseProgressButton from "./_components/CourseProgressButton";
 
 const page = async ({
@@ -40,7 +36,7 @@ const page = async ({
   const completeOnEnd = !!purchase && !userProgrss?.isCompleted;
 
   return (
-    <div className="pb-16 ">
+    <div className="pb-16">
       {userProgrss?.isCompleted && (
         <Banner variant="success" label="you alredy completed this chapter" />
       )}
@@ -72,18 +68,18 @@ const page = async ({
               nextChapterId={nextChapter?.id}
             />
           )}
-          {!purchase && (
+          {!purchase && course?.price && (
             <EnrollButton price={course?.price} courseId={params.courseId} />
           )}
         </div>
         <div className="mt-10">
-          <p className="text-lg mb-4 font-semibold">Description</p>
+          <p className="text-lg  font-semibold">Description</p>
           <Preview value={chapter?.description || ""} />
         </div>
         <div>
           {!!attchmensts?.length && (
             <>
-              <p className="text-lg  font-semibold">Course Attachments</p>
+              <p className="text-lg font-semibold">Course Attachments</p>
               <p className="mb-4">
                 click below links to open a attchments in new tab
               </p>

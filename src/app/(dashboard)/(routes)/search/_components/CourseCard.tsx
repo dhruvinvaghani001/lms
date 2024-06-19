@@ -47,7 +47,7 @@ const CourseCard = ({
           {progress != null ? (
             <>
               <Progress value={progress} className="h-2" />
-              <p className="mt-2 text-sm">{progress} % completed</p>
+              <p className="mt-2 text-sm">{Math.round(progress)} % completed</p>
             </>
           ) : (
             <p className="text-md md:text-sm font-medium text-card-foreground">
