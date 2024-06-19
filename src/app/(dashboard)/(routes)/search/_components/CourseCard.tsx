@@ -50,7 +50,7 @@ const CourseCard = ({
               <p className="mt-2 text-sm">{progress} % completed</p>
             </>
           ) : (
-            <p className="text-md md:text-sm font-medium text-slate-700">
+            <p className="text-md md:text-sm font-medium text-card-foreground">
               {formatPrice(price)}
             </p>
           )}
