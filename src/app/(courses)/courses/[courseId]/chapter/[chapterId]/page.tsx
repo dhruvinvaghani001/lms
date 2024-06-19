@@ -9,6 +9,8 @@ import { CheckCircle, PlusCircle } from "lucide-react";
 import formatPrice from "@/lib/formatPrice";
 import Preview from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapter/[chapterId]/_components/Preview";
 import EnrollButton from "./_components/EnrollButton";
+import UserProgressBar from "@/components/UserProgressBar";
+import CourseProgressButton from "./_components/CourseProgressButton";
 
 const page = async ({
   params,
@@ -36,10 +38,9 @@ const page = async ({
 
   const isLocked = !chapter?.isFree && !purchase;
   const completeOnEnd = !!purchase && !userProgrss?.isCompleted;
-  console.log("hello");
-  console.log(attchmensts);
+
   return (
-    <div className="pb-16">
+    <div className="pb-16 ">
       {userProgrss?.isCompleted && (
         <Banner variant="success" label="you alredy completed this chapter" />
       )}
@@ -49,7 +50,7 @@ const page = async ({
           label="you need to purchase this course to watch it!"
         />
       )}
-      <div className="max-w-4xl mx-auto py-10 px-4 md:px-0 md:max-w-3xl">
+      <div className="max-w-4xl mx-auto py-10 px-4 lg:px-0 md:max-w-3xl">
         <div className="">
           <VideoPlayer
             isLocked={isLocked}
@@ -62,19 +63,17 @@ const page = async ({
           />
         </div>
         <div className="flex flex-col md:flex-row items-start space-y-4  md:items-center justify-between mt-4 ">
-          {purchase ? (
-            <>
-              <p className="text-xl font-bold ">{chapter?.title}</p>
-              <Button variant="default" className="flex items-center gap-2">
-                <CheckCircle />
-                Mark as completed
-              </Button>
-            </>
-          ) : (
-            <>
-              <p className="text-xl font-bold ">{chapter?.title}</p>
-              <EnrollButton price={course?.price} courseId={params.courseId} />
-            </>
+          <p className="text-xl font-bold ">{chapter?.title}</p>
+          {purchase && (
+            <CourseProgressButton
+              courseId={params.courseId}
+              chapterId={params.chapterId}
+              isCompleted={!!userProgrss?.isCompleted}
+              nextChapterId={nextChapter?.id}
+            />
+          )}
+          {!purchase && (
+            <EnrollButton price={course?.price} courseId={params.courseId} />
           )}
         </div>
         <div className="mt-10">

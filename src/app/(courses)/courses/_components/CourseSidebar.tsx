@@ -15,6 +15,7 @@ import { Chapter, Course, UserProgress } from "@prisma/client";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import ChapterIteam from "./ChapterIteam";
+import UserProgressBar from "@/components/UserProgressBar";
 
 interface CourseSidebar {
   course: Course & {
@@ -47,9 +48,10 @@ const CourseSidebar = async ({ course, progress }: CourseSidebar) => {
         <div className="logo flex justify-start px-4">
           <Image src={logo} width={140} alt="logo" />
         </div>
-        <div className="logo flex justify-start px-4 mt-10 text-xl font-semibold">
+        <div className="logo flex flex-col justify-start px-4 mt-10 text-xl font-semibold">
           {course.title}
         </div>
+        {purchase && <UserProgressBar value={22} />}
         <div className="flex flex-col justify-start items-start w-full mt-8">
           {course.chapters.map((chapter) => {
             return (

@@ -3,13 +3,14 @@ import { BookOpen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Progress } from "@/components/ui/progress";
 
 interface CourseCardProps {
   id: string;
   title: string;
   imageUrl: string;
   numberOfChapter: number | 0;
-  price: number | null;
+  price: number;
   progress: number | null;
   category: string;
 }
@@ -44,7 +45,10 @@ const CourseCard = ({
             </div>
           </div>
           {progress != null ? (
-            <></>
+            <>
+              <Progress value={progress} className="h-2" />
+              <p className="mt-2 text-sm">{progress} % completed</p>
+            </>
           ) : (
             <p className="text-md md:text-sm font-medium text-slate-700">
               {formatPrice(price)}
