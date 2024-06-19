@@ -1,22 +1,43 @@
-"use client";
-import { Menu, Sheet } from "lucide-react";
-import SideBar from "@/app/(dashboard)/_components/SideBar";
+import { db } from "@/lib/db";
+import CourseList from "../search/_components/CourseList";
+import { auth } from "@clerk/nextjs/server";
+import { getUserProgress } from "@/actions/get-userprogress";
+import { redirect } from "next/navigation";
+import { getPurchaseCourses } from "@/actions/get-puchase-course";
 import {
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
+  CheckCircle,
+  CircleCheck,
+  CircleCheckBig,
+  CircleChevronLeft,
+  Clock2,
+} from "lucide-react";
+import { Card } from "@/components/ui/card";
+import StatsCard from "./_components/StatsCard";
 
-export default function Home() {
+export default async function Dashboard() {
+  const { userId } = auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+  const purchaseCourses = await getPurchaseCourses({ userId });
+  const completedCount = purchaseCourses.filter(
+    (iteam) => iteam.progress == 100
+  ).length;
+  const inProgressCount = purchaseCourses.filter((item) => item.progress != 100)
+    .length;
+
   return (
-    <div>
-      <UserButton />
+    <div className="p-6 pb-10">
+      <div className="progress_status flex flex-col items-start justify-center  gap-4  md:flex-row md:items-center md:justify-start">
+        <StatsCard label="In Progress" count={inProgressCount} icon={Clock2} />
+        <StatsCard
+          label="Completed"
+          count={completedCount}
+          icon={CheckCircle}
+        />
+      </div>
+      <div className="mt-10">{<CourseList items={purchaseCourses} />}</div>
     </div>
   );
 }
