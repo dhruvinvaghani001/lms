@@ -40,7 +40,7 @@ const ChapterIteam = ({
     >
       <div className="flex items-center gap-x-2 py-4">
         <Icon width={20} />
-        {label.substring(0, 15)}...
+        {label.length > 20 ? <>{label.substring(0, 15)}...</> : <>{label}</>}
       </div>
     </button>
   );

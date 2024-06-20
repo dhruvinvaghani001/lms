@@ -43,7 +43,7 @@ const CourseSidebar = async ({ course, progress }: CourseSidebar) => {
   });
 
   return (
-    <div className="w-56 h-screen border-r overflow-y-auto shadow-sm">
+    <div className="w-56 h-screen border-r overflow-y-scroll shadow-sm scrollbar-thin scrollbar-thumb-rounded">
       <div className="flex flex-col justify-center items-start py-4">
         <div className="logo flex justify-start px-4">
           <Image src={logo} width={140} alt="logo" />
@@ -52,7 +52,7 @@ const CourseSidebar = async ({ course, progress }: CourseSidebar) => {
           {course.title}
         </div>
         {purchase && <UserProgressBar value={22} />}
-        <div className="flex flex-col justify-start items-start w-full mt-8">
+        <div className="flex flex-col justify-start items-start w-full mt-8 pb-10">
           {course.chapters.map((chapter) => {
             return (
               <ChapterIteam
