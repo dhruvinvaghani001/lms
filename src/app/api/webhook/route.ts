@@ -29,14 +29,20 @@ export async function POST(request: Request) {
   const userId = session?.metadata?.userId;
   const courseId = session?.metadata?.courseId;
 
+  console.log("session rom webhook:");
+  console.log(session);
+
   if (event.type === "checkout.session.completed") {
     if (!userId || !courseId) {
       return NextResponse.json({ message: "Webhook Error:" }, { status: 400 });
     }
+
     await db.purchase.create({
       data: {
-        userId: userId,
         courseId: courseId,
+        userId: userId,
+        purchasePrice: Math.round(session?.amount_total! / 100),
+        stripeTransactionId: session.payment_intent?.toString(),
       },
     });
   } else {

@@ -65,8 +65,6 @@ export async function POST(
         },
       },
     ];
-    console.log("hello froml line iteams:");
-    console.log(line_items);
 
     let stripeCustomer = await db.stripeCustomer.findUnique({
       where: {
@@ -77,13 +75,10 @@ export async function POST(
       },
     });
 
-    if (stripeCustomer === null) {
+    if (!stripeCustomer) {
       const customer = await stripe.customers.create({
         email: user.emailAddresses?.[0]?.emailAddress,
       });
-
-      console.log(customer);
-
       stripeCustomer = await db.stripeCustomer.create({
         data: {
           userId: user.id,
@@ -106,8 +101,6 @@ export async function POST(
         userId: user.id,
       },
     });
-    console.log("session url");
-    console.log(session);
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.log("checkout error:", error);
