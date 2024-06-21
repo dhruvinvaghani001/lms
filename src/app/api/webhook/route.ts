@@ -1,10 +1,8 @@
 import Stripe from "stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-
+import { stripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(request: Request) {
   const body = await request.text();
@@ -26,16 +24,22 @@ export async function POST(request: Request) {
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
+
   const userId = session?.metadata?.userId;
   const courseId = session?.metadata?.courseId;
-
-  console.log("session rom webhook:");
-  console.log(session);
 
   if (event.type === "checkout.session.completed") {
     if (!userId || !courseId) {
       return NextResponse.json({ message: "Webhook Error:" }, { status: 400 });
     }
+    console.log("inside event of session checkout completed");
+    console.log(session);
+
+    const paymentIntent = await stripe.paymentIntents.retrieve(
+      session?.payment_intent?.toString()
+    );
+
+    const charge = await stripe.charges.retrieve(paymentIntent?.latest_charge);
 
     await db.purchase.create({
       data: {
@@ -43,6 +47,7 @@ export async function POST(request: Request) {
         userId: userId,
         purchasePrice: Math.round(session?.amount_total! / 100),
         stripeTransactionId: session.payment_intent?.toString(),
+        receiptUrl: charge.receipt_url,
       },
     });
   } else {
