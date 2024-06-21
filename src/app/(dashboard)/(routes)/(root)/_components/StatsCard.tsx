@@ -10,7 +10,7 @@ interface StatsCardProps {
 
 const StatsCard = ({ label, count, icon: Icon }: StatsCardProps) => {
   return (
-    <Card className="py-2 px-4 flex items-center gap-4">
+    <Card className="p-4 md:py-2 px-4 flex items-center gap-4">
       <div className="icon p-2 bg-muted rounded-full flex items-center justify-center">
         <Icon
           width={34}
