@@ -1,6 +1,7 @@
 "use client";
 import { logo } from "@/assets";
 import {
+  ArrowRightLeft,
   BarChartHorizontal,
   BookDashed,
   Compass,
@@ -26,6 +27,11 @@ const guetsRoutes = [
     icon: Compass,
     name: "Explore",
     href: "/search",
+  },
+  {
+    icon: ArrowRightLeft,
+    name: "Transactions",
+    href: "/transaction",
   },
 ];
 
