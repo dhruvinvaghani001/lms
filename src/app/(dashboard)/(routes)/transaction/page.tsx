@@ -10,6 +10,8 @@ import { auth } from "@clerk/nextjs/server";
 import { Noto_Sans_Lepcha } from "next/font/google";
 import { redirect } from "next/navigation";
 import React from "react";
+import { columns } from "./_components/Column";
+import { DataTable } from "../teacher/courses/_components/CourseTable";
 
 const TransactionPage = async () => {
   const { userId } = auth();
@@ -29,25 +31,22 @@ const TransactionPage = async () => {
         },
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
-  console.log(purchases);
+  const data = purchases.map((item) => {
+    return {
+      title: item.course.title,
+      priceOfPurchase: item.purchasePrice,
+      reciptUrl: item.receiptUrl,
+    };
+  });
 
   return (
     <div className="p-6">
-      {purchases.map((item) => {
-        return (
-          <Card key={item.id} className="w-fit">
-            <CardHeader>{item.course.title}</CardHeader>
-            <CardContent>pay Amount : $ {item.purchasePrice}</CardContent>
-            <CardContent>
-              <a href={item.receiptUrl} target="_blank">
-                Recipt Download
-              </a>
-            </CardContent>
-          </Card>
-        );
-      })}
+      <DataTable columns={columns} data={data} />
     </div>
   );
 };
