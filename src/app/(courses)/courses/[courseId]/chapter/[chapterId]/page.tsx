@@ -7,6 +7,48 @@ import VideoPlayer from "./_components/VideoPlayer";
 import Preview from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapter/[chapterId]/_components/Preview";
 import EnrollButton from "./_components/EnrollButton";
 import CourseProgressButton from "./_components/CourseProgressButton";
+import { Metadata, ResolvingMetadata } from "next";
+import { db } from "@/lib/db";
+
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: { courseId: string; chapterId: string };
+  },
+  parent: ResolvingMetadata
+) {
+  const courseId = params.courseId;
+  const chapterId = params.chapterId;
+
+  const chapter = await db.chapter.findUnique({
+    where: {
+      id: chapterId,
+    },
+    select: {
+      title: true,
+      description: true,
+    },
+  });
+
+  const course = await db.course.findUnique({
+    where: {
+      id: courseId,
+    },
+    select: {
+      imageUrl: true,
+      title: true,
+    },
+  });
+
+  return {
+    title: `${course?.title} | ${chapter?.title}`,
+    openGraph: {
+      images: [course?.imageUrl],
+    },
+    description: chapter?.description,
+  };
+}
 
 const page = async ({
   params,

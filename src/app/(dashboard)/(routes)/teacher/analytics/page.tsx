@@ -19,6 +19,12 @@ import {
   YAxis,
 } from "recharts";
 import Chart from "./_components/Chart";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Analytics",
+  description: "analytics of teacher to watch all statstics",
+};
 
 export type ChartData = {
   name: string;

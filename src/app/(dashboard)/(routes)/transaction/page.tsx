@@ -12,6 +12,12 @@ import { redirect } from "next/navigation";
 import React from "react";
 import { columns } from "./_components/Column";
 import { DataTable } from "../teacher/courses/_components/CourseTable";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Transactions",
+  description: "all transactions by students",
+};
 
 const TransactionPage = async () => {
   const { userId } = auth();

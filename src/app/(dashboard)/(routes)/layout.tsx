@@ -1,6 +1,12 @@
 import SideBar from "@/app/(dashboard)/_components/SideBar";
 import React from "react";
 import NavBar from "../_components/NavBar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Teacher Dashboard",
+  description: "teacher dashborad to make course and publish",
+};
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (

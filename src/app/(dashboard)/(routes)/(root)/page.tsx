@@ -13,6 +13,12 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import StatsCard from "./_components/StatsCard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Student Dashboard",
+  description: "Dashboard for students",
+};
 
 export default async function Dashboard() {
   const { userId } = auth();
