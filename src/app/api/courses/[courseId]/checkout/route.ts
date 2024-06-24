@@ -82,9 +82,6 @@ export async function POST(
       });
     }
 
-    console.log("stripe cusotmer:===>");
-    console.log(stripeCustomer);
-
     const session = await stripe.checkout.sessions.create({
       customer: stripeCustomer.stripeCustomerId,
       line_items,
