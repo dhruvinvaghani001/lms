@@ -5,6 +5,7 @@ import {
   BarChartHorizontal,
   BookDashed,
   Compass,
+  DollarSign,
   List,
   PanelsLeftBottom,
 } from "lucide-react";
@@ -45,6 +46,11 @@ const teacherRoutes = [
     icon: BarChartHorizontal,
     name: "Analytics",
     href: "/teacher/analytics",
+  },
+  {
+    icon: DollarSign,
+    name: "Payouts",
+    href: "/teacher/payout",
   },
 ];
 

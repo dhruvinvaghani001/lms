@@ -14,7 +14,10 @@ interface SideBarLink {
 const SideBarLink = ({ icon: Icon, name, href }: SideBarLink) => {
   const pathname = usePathname();
 
-  const isaActive = (pathname === "/" && href === "/") || pathname === href;
+  const isaActive =
+    (pathname === "/" && href === "/") ||
+    pathname === href ||
+    pathname.startsWith(href);
   return (
     <>
       <Link
