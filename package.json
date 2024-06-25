@@ -34,6 +34,7 @@
     "next": "14.2.3",
     "next-themes": "^0.3.0",
     "query-string": "^9.0.0",
+    "razorpay": "^2.9.4",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.5",
