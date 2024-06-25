@@ -133,3 +133,27 @@ model StripeCustomer {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model ContactDetail {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  name    String
+  email   String @unique
+  contact String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BankDetail {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  name          String
+  ifsc          String
+  accountNumber String
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+}
