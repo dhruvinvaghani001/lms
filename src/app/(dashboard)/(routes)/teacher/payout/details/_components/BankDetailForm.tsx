@@ -63,7 +63,7 @@ const BankDetailForm = ({
       toast.success(response.data.message);
       router.refresh();
       // router.push("/teacher/payout");
-    } catch (error) {
+    } catch (error:any) {
       console.log(error);
       toast.error("something went wrong!");
     }
