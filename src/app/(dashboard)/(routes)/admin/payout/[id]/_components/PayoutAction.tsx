@@ -42,7 +42,7 @@ const PayoutAction = ({
       );
       router.refresh();
       toast.success(response.data.message);
-    } catch (error) {
+    } catch (error:any) {
       console.log("onaccept some thing went wwrong");
       toast.error(error.response.data.message);
     }
