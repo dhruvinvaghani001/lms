@@ -66,7 +66,7 @@ export default async function getChapter({
           courseId: courseId,
           isPublished: true,
           position: {
-            gt: chapter?.position,
+            gt: chapter?.position!,
           },
         },
         orderBy: {
