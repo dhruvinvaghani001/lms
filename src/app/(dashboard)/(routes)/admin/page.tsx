@@ -1,12 +1,36 @@
 import React from "react";
-import { DataTable } from "../teacher/courses/_components/CourseTable";
 import { columns } from "./_components/columns";
 import { db } from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { DataTable } from "./../admin/_components/DataTable";
 
 type Props = {};
 
 const page = async () => {
-  const data = await db.payoutRequest.findMany({});
+  const { userId } = auth();
+
+  if (!userId) {
+    redirect("/");
+  }
+
+  const payoutRequestData = await db.payoutRequest.findMany({});
+
+  const data = await Promise.all(
+    payoutRequestData.map(async (item) => {
+      const contact = await db.contactDetail.findUnique({
+        where: {
+          userId: item.userId,
+        },
+      });
+      return {
+        id: item.id,
+        name: contact?.name!,
+        amount: item.amount,
+        status: item.status,
+      };
+    })
+  );
 
   return (
     <div className="p-6">

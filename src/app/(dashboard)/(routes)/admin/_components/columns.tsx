@@ -9,33 +9,82 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, PencilIcon } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal, PencilIcon } from "lucide-react";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 
 export type PayoutReqeust = {
   id: string;
   amount: number;
   status: Status;
-  userId: string;
+  name: string;
 };
 
 export const columns: ColumnDef<PayoutReqeust>[] = [
   {
-    accessorKey: "userId",
-    header: "userId",
+    accessorKey: "name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Teacher Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "amount",
-    header: "Amount",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Amount
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "status",
-    header: "Staus",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const { status } = row.original;
+
+      return (
+        <Badge
+          variant={
+            status === Status.Faild
+              ? "destructive"
+              : status === Status.Success
+              ? "success"
+              : "default"
+          }
+        >
+          {status}
+        </Badge>
+      );
+    },
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const { id } = row.original;
+      const { id, status } = row.original;
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

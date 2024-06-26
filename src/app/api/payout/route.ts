@@ -12,6 +12,48 @@ export async function POST(request: Request) {
       );
     }
     const reqBody = await request.json();
+
+    if (reqBody.amount == 0) {
+      return NextResponse.json(
+        { message: "Wallet is Empty!" },
+        { status: 400 }
+      );
+    }
+
+    const [contact, bank] = await Promise.all([
+      db.contactDetail.findUnique({
+        where: {
+          userId,
+        },
+      }),
+      db.bankDetail.findUnique({
+        where: {
+          userId,
+        },
+      }),
+    ]);
+
+    if (!contact || !bank) {
+      return NextResponse.json(
+        { message: "Submit your details!" },
+        { status: 404 }
+      );
+    }
+
+    const pendingPaymentRequest = await db.payoutRequest.findMany({
+      where: {
+        userId,
+        status: "Pending",
+      },
+    });
+
+    if (pendingPaymentRequest.length > 0) {
+      return NextResponse.json(
+        { message: "You have alredy one pending request !" },
+        { status: 400 }
+      );
+    }
+
     const payoutRequest = await db.payoutRequest.create({
       data: {
         amount: reqBody.amount,

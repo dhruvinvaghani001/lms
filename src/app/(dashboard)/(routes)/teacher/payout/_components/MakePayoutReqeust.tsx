@@ -20,8 +20,7 @@ const MakePayoutReqeust = ({ wallet }: MakePayoutrequestProps) => {
       toast.success(response.data.message);
       router.refresh();
     } catch (error) {
-      console.log("error");
-      toast.error("something went wrong!");
+      toast.error(error?.response?.data?.message);
     }
   };
 

@@ -1,3 +1,4 @@
+import isAdmin from "@/lib/isAdmin";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -5,7 +6,11 @@ import React from "react";
 const layout = ({ children }: { children: React.ReactNode }) => {
   const { userId } = auth();
 
-  if (userId !== "user_2hgq3KSE0iNrPkeTIfaFX0aW1bT") {
+  if (!userId) {
+    redirect("/");
+  }
+
+  if (!isAdmin(userId)) {
     redirect("/");
   }
 

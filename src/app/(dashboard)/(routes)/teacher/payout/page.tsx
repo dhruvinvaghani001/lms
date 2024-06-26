@@ -8,6 +8,8 @@ import { ChartData } from "../analytics/page";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import MakePayoutReqeust from "./_components/MakePayoutReqeust";
+import { DataTable } from "../../admin/_components/DataTable";
+import { columns } from "../../admin/_components/columns";
 
 const page = async () => {
   const { userId } = auth();
@@ -57,15 +59,39 @@ const page = async () => {
 
   const wallet = totalRevenue - totalPayout;
 
+  const payoutRequestData = await db.payoutRequest.findMany({
+    where: {
+      userId,
+    },
+  });
+
+  const PayoutTabledata = await Promise.all(
+    payoutRequestData.map(async (item) => {
+      const contact = await db.contactDetail.findUnique({
+        where: {
+          userId,
+        },
+      });
+      return {
+        id: item.id,
+        name: contact?.name!,
+        amount: item.amount,
+        status: item.status,
+      };
+    })
+  );
+
   return (
     <div className="p-6">
       <Link href="/teacher/payout/details">
         <Button>Submit details</Button>
       </Link>
-      <div className="w-1/4 mt-4 mb-6">
+      <div className="mt-4 mb-6 flex gap-4">
+        <StatsCard label="Total withdraw" count={totalPayout} icon={Wallet} />
         <StatsCard label="Wallet" count={wallet} icon={Wallet} />
       </div>
       <MakePayoutReqeust wallet={wallet} />
+      <DataTable columns={columns} data={PayoutTabledata}></DataTable>
     </div>
   );
 };
