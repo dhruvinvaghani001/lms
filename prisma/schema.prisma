@@ -157,3 +157,20 @@ model BankDetail {
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 }
+
+model PayoutRequest {
+  id     String @id @default(uuid())
+  userId String
+
+  amount Float
+  status Status
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Status {
+  Pending
+  Faild
+  Success
+}
