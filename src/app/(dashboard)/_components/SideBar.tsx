@@ -5,6 +5,7 @@ import {
   BarChartHorizontal,
   BookDashed,
   Compass,
+  CreditCard,
   DollarSign,
   List,
   PanelsLeftBottom,
@@ -54,10 +55,19 @@ const teacherRoutes = [
   },
 ];
 
+const adminRoutes = [
+  {
+    icon: CreditCard,
+    name: "Payouts",
+    href: "/",
+  },
+];
+
 const SideBar = (props: Props) => {
   const pathname = usePathname();
 
-  const routes = pathname.startsWith("/teacher") ? teacherRoutes : guetsRoutes;
+  let routes = pathname.startsWith("/teacher") ? teacherRoutes : guetsRoutes;
+  routes = pathname.startsWith("/admin") ? adminRoutes : routes;
   return (
     <div className="w-56 h-screen border-r overflow-y-auto shadow-sm">
       <div className="flex flex-col justify-center items-start py-4">
