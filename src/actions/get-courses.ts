@@ -1,5 +1,4 @@
 import { db } from "@/lib/db";
-import { promise } from "zod";
 import { getUserProgress } from "./get-userprogress";
 
 export async function getCourses({

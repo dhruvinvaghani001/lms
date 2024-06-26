@@ -25,11 +25,11 @@ const CourseList = ({ items }: CourseListProps) => {
               key={item.id}
               id={item.id}
               title={item.title}
-              imageUrl={item.imageUrl}
+              imageUrl={item.imageUrl!}
               numberOfChapter={item.chapters.length}
-              price={item.price}
+              price={item.price!}
               progress={item.progress}
-              category={item?.category?.name}
+              category={item?.category?.name!}
             />
           ))}
       </div>
