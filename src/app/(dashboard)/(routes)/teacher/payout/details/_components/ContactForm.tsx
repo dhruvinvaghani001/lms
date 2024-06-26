@@ -16,6 +16,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "name is required" }),
@@ -25,18 +28,45 @@ const formSchema = z.object({
     .length(10, { message: "contact number shhould be 10 digit!" }),
 });
 
-const ContactForm = () => {
+interface ContactFormProps {
+  name?: string;
+  email?: string;
+  mobilenumber?: string;
+  isUpdate: boolean;
+}
+
+const ContactForm = ({
+  name,
+  email,
+  mobilenumber,
+  isUpdate,
+}: ContactFormProps) => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      contact: "",
+      name: name,
+      email: email,
+      contact: mobilenumber,
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      let response;
+      if (isUpdate) {
+        response = await axios.patch("/api/contact", values);
+      } else {
+        response = await axios.post("/api/contact", values);
+      }
+      toast.success(response.data.message);
+      router.refresh();
+      // router.push("/teacher/payout");
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong!");
+    }
   }
 
   return (
@@ -51,7 +81,7 @@ const ContactForm = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Contact Name</FormLabel>
                     <FormControl>
                       <Input placeholder="name" {...field} />
                     </FormControl>

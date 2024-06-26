@@ -139,8 +139,8 @@ model ContactDetail {
   userId String @unique
 
   name    String
-  email   String @unique
-  contact String @unique
+  email   String
+  contact String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
