@@ -55,9 +55,9 @@ const AttchmentForm = ({ attachments, courseId }: AttchmentFormProps) => {
       console.log(response);
       toggleEdit();
       router.refresh();
-    } catch (error:any) {
+    } catch (error) {
       console.log("title update error", error);
-      toast.error(error?.message);
+      toast.error("Something went wrong!");
     }
   };
 
@@ -70,9 +70,8 @@ const AttchmentForm = ({ attachments, courseId }: AttchmentFormProps) => {
       toast.success(response.data.message);
       console.log(response);
       router.refresh();
-    } catch (error:any) {
-      console.log(error);
-      toast.error(error?.message);
+    } catch (error) {
+      toast.error("Something went Wrong!");
     }
   };
 

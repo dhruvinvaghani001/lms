@@ -8,7 +8,7 @@ import Link from "next/link";
 type Course = {
   title: string;
   priceOfPurchase: number;
-  reciptUrl: string;
+  reciptUrl: string | null;
 };
 
 export const columns: ColumnDef<Course>[] = [
@@ -46,7 +46,7 @@ export const columns: ColumnDef<Course>[] = [
       const { reciptUrl } = row.original;
 
       return (
-        <Link href={reciptUrl} target="_blank">
+        <Link href={reciptUrl || ""} target="_blank">
           <Button>View reciept</Button>
         </Link>
       );

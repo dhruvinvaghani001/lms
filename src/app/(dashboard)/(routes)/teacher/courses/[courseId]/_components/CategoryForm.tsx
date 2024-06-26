@@ -59,9 +59,9 @@ const CategoryForm = ({ categoryId, courseId, options }: CategoryFormProps) => {
       console.log(response);
       toggleEdit();
       router.refresh();
-    } catch (error:any) {
+    } catch (error) {
       console.log("title update error", error);
-      toast.error(error?.message);
+      toast.error("Something went Wrong!");
     }
   };
 

@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import { ChartData } from "../page";
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     const { revenue, numberOfStudents } = payload[0].payload;
     return (

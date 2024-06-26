@@ -32,14 +32,18 @@ export async function POST(request: Request) {
     if (!userId || !courseId) {
       return NextResponse.json({ message: "Webhook Error:" }, { status: 400 });
     }
-    console.log("inside event of session checkout completed");
-    console.log(session);
-
+    if (!session) {
+      return NextResponse.json(
+        { message: "session not found" },
+        { status: 500 }
+      );
+    }
+    const paymentIntertId = session?.payment_intent?.toString();
     const paymentIntent = await stripe.paymentIntents.retrieve(
-      session?.payment_intent?.toString()
+      paymentIntertId!
     );
-
-    const charge = await stripe.charges.retrieve(paymentIntent?.latest_charge);
+    const latest_charge = paymentIntent.latest_charge;
+    const charge = await stripe.charges.retrieve(latest_charge?.toString()!);
 
     await db.purchase.create({
       data: {

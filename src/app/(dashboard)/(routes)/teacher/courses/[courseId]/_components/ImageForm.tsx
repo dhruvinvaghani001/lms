@@ -61,8 +61,7 @@ const ImageForm = ({ imageUrl, courseId }: ImageFormProps) => {
       toggleEdit();
       router.refresh();
     } catch (error) {
-      console.log("title update error", error);
-      toast.error(error?.message);
+      toast.error("Something went wrong!");
     }
   };
 

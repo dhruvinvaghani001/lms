@@ -18,13 +18,10 @@ import { Button } from "@/components/ui/button";
 import { BookCheck, Pen, PlusCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
-import Link from "next/link";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Chapter } from "@prisma/client";
-import { Badge } from "@/components/ui/badge";
-import { Reorder } from "framer-motion";
 import DragableChapterList from "./DragableChapterList";
 
 interface ChapterFormProps {
@@ -78,7 +75,7 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
       form.reset();
     } catch (error) {
       console.log("chapter Added!", error);
-      toast.error(error?.message);
+      toast.error("Something went wrong!");
     }
   };
 
@@ -92,7 +89,7 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
       router.refresh();
     } catch (error) {
       console.log("Eror while reordring", error);
-      toast.error(error?.message);
+      toast.error("Something Went Wrong!");
     } finally {
       setLoading(false);
     }
