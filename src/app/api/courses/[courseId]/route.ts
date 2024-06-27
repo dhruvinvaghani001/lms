@@ -1,11 +1,12 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import Mux from "@mux/mux-node";
 import { NextResponse } from "next/server";
+import { v2 as cloudinary } from "cloudinary";
 
-const mux = new Mux({
-  tokenId: process.env.MUX_TOKEN_ID,
-  tokenSecret: process.env.MUX_TOKEN_SECRET,
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
+  api_key: process.env.CLOUDINARY_API_KEY!,
+  api_secret: process.env.CLOUDINARY_API_SECRET!,
 });
 
 export async function PATCH(
@@ -84,8 +85,8 @@ export async function DELETE(
 
     if (courseOwner) {
       for (const chapter of courseOwner?.chapters) {
-        if (chapter.cloudinaryData?.assetId) {
-          await mux.video.assets.delete(chapter.cloudinaryData?.publicId!);
+        if (chapter.cloudinaryData?.publicId) {
+          await cloudinary.uploader.destroy(chapter.cloudinaryData?.publicId);
         }
       }
     }
