@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { LayoutDashboard, MoveLeft } from "lucide-react";
+import { LayoutDashboard, Lock, MoveLeft, Video } from "lucide-react";
 import { redirect } from "next/navigation";
 import React from "react";
 import TitleForm from "./_components/TitleForm";
@@ -11,6 +11,7 @@ import Banner from "@/components/Banner";
 import { Button } from "@/components/ui/button";
 import ChapterAction from "./_components/ChapterAction";
 import Link from "next/link";
+import { PageNavigation } from "./_components/BreadCrumb";
 
 const Chapterpage = async ({
   params,
@@ -22,6 +23,14 @@ const Chapterpage = async ({
   if (!userId) {
     redirect("/sign-in");
   }
+  const course = await db.course.findUnique({
+    where: {
+      id: params.courseId,
+    },
+    select: {
+      title: true,
+    },
+  });
 
   const chapter = await db.chapter.findUnique({
     where: {
@@ -58,14 +67,20 @@ const Chapterpage = async ({
               className="flex gap-4 items-center justify-normal
                                 "
             >
-              {" "}
               <MoveLeft></MoveLeft> Back to course setup{" "}
             </Link>
           </Button>
+          <div className="mt-4">
+            <PageNavigation
+              courseId={params.courseId}
+              courseName={course?.title!}
+              chapterName={chapter.title}
+            />
+          </div>
         </div>
-        <div className="course__title flex flex-col items-start gap-4 md:gap-0 md:flex-row md:items-center justify-between">
+        <div className="course__title flex flex-col items-start gap-4 md:gap-0 md:flex-row md:items-center justify-between mt-4">
           <div>
-            <h1 className="text-2xl font-bold mt-10">Chapter Setup</h1>
+            <h1 className="text-2xl font-bold">Chapter Setup</h1>
             <p className="text-base font-semibold mt-1">
               complete all fields{" "}
               <span>{`(${completedFields}/${totalFields})`}</span>
@@ -78,12 +93,14 @@ const Chapterpage = async ({
             isPublished={chapter.isPublished}
           />
         </div>
-        <div className="updated mt-8">
+        <div className="updated mt-10">
           <div className="gap-2 md:grid md:grid-cols-2 md:gap-6">
             <div>
               <div className="flex items-center gap-2 mb-8">
-                <LayoutDashboard />
-                <h2 className="text-xl">Customize your Chapter</h2>
+                <div className="p-2 bg-card-foreground rounded-full">
+                  <LayoutDashboard className="text-card" />
+                </div>
+                <h2 className="text-xl">Customize Chapter</h2>
               </div>
               <div className="flex gap-8 flex-col">
                 <TitleForm
@@ -96,6 +113,12 @@ const Chapterpage = async ({
                   courseId={params.courseId}
                   description={chapter?.description}
                 />
+                <div className="flex items-center gap-2">
+                  <div className="p-2 bg-card-foreground rounded-full">
+                    <Lock className="text-card" />
+                  </div>
+                  <h2 className="text-xl">Chapter Access</h2>
+                </div>
                 <IsFreeForm
                   chapterId={params.chapterId}
                   courseId={params.courseId}
@@ -104,9 +127,11 @@ const Chapterpage = async ({
               </div>
             </div>
             <div>
-              <div className="flex items-center gap-2 mb-8 mt-10 xl:mt-0">
-                <LayoutDashboard />
-                <h2 className="text-xl">Customize your Course</h2>
+              <div className="flex items-center gap-2 mb-8">
+                <div className="p-2 bg-card-foreground rounded-full">
+                  <Video className="text-card" />
+                </div>
+                <h2 className="text-xl">Chapter Video</h2>
               </div>
               <div className="flex gap-8 flex-col">
                 <ChapterVideoForm

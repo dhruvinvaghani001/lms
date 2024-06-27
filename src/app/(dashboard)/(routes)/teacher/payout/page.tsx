@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 import StatsCard from "../analytics/_components/StatsCard";
-import { Wallet } from "lucide-react";
+import { Wallet, WalletCards } from "lucide-react";
 import { auth } from "@clerk/nextjs/server";
 import { ChartData } from "../analytics/page";
 import { db } from "@/lib/db";
@@ -63,6 +63,9 @@ const page = async () => {
     where: {
       userId,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   const PayoutTabledata = await Promise.all(
@@ -84,14 +87,21 @@ const page = async () => {
   return (
     <div className="p-6">
       <Link href="/teacher/payout/details">
-        <Button>Submit details</Button>
+        <Button variant="default">Submit Bank & Contact Details</Button>
       </Link>
-      <div className="mt-4 mb-6 flex gap-4">
-        <StatsCard label="Total withdraw" count={totalPayout} icon={Wallet} />
+      <div className="mt-8 mb-6 flex gap-4">
+        <StatsCard
+          label="Total withdraw"
+          count={totalPayout}
+          icon={WalletCards}
+        />
         <StatsCard label="Wallet" count={wallet} icon={Wallet} />
       </div>
-      <MakePayoutReqeust wallet={wallet} />
-      <DataTable columns={columns} data={PayoutTabledata}></DataTable>
+
+      <div className="mt-16">
+        <MakePayoutReqeust wallet={wallet} />
+        <DataTable columns={columns} data={PayoutTabledata}></DataTable>
+      </div>
     </div>
   );
 };

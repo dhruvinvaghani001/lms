@@ -152,7 +152,7 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
                 </form>
               </Form>
             )}
-            <div className="text-primary mt-3 flex items-center justify-between">
+            <div className="text-primary mt-6 flex items-center justify-between">
               <p className="font-normal">Drag and Drop to reorder Chapters</p>
               {chapters.length >= 2 && (
                 <Button

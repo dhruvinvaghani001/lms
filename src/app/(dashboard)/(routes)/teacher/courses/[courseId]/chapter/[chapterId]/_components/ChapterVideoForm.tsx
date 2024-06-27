@@ -96,7 +96,7 @@ const ChapterVideoForm = ({
               )}
             </Button>
           </div>
-          <div className="form mt-2">
+          <div className="form mt-4">
             {!isEditing && !videoUrl && (
               <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
                 <Video className="h-10 w-10 text-slate-500" />

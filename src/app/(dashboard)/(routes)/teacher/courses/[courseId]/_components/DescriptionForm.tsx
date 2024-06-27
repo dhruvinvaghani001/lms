@@ -80,7 +80,7 @@ const DescriptionForm = ({ description, courseId }: DescriptionFormProps) => {
               )}
             </Button>
           </div>
-          <div className="form mt-2">
+          <div className="form mt-4">
             {!isEditing && (
               <>
                 {description || (
