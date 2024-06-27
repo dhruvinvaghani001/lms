@@ -43,7 +43,7 @@ export default async function getChapter({
       throw new Error("courses not found !");
     }
 
-    let muxData = null;
+    let clodinaryData = null;
     let attchmensts: Attachment[] = [];
     let nextChapter: Chapter | null = null;
 
@@ -56,7 +56,7 @@ export default async function getChapter({
     }
 
     if (chapter.isFree || purchase) {
-      muxData = await db.muxData.findUnique({
+      clodinaryData = await db.cloudinaryData.findUnique({
         where: {
           chapterId: chapterId,
         },
@@ -86,7 +86,7 @@ export default async function getChapter({
     return {
       chapter: chapter,
       course: course,
-      muxData: muxData,
+      clodinaryData: clodinaryData,
       attchmensts: attchmensts,
       nextChapter: nextChapter,
       userProgrss: userProgress,
@@ -96,7 +96,7 @@ export default async function getChapter({
     console.log("get chapter error", error);
     return {
       chapter: null,
-      muxData: null,
+      cloudinaryData: null,
       attchmnets: null,
       nextChapter: null,
       userProgress: null,

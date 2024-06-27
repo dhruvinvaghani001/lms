@@ -1,11 +1,17 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import Mux from "@mux/mux-node";
+import { v2 as cloudinary } from "cloudinary";
 
-const mux = new Mux({
-  tokenId: process.env.MUX_TOKEN_ID,
-  tokenSecret: process.env.MUX_TOKEN_SECRET,
+// const mux = new Mux({
+//   tokenId: process.env.MUX_TOKEN_ID,
+//   tokenSecret: process.env.MUX_TOKEN_SECRET,
+// });
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
+  api_key: process.env.CLOUDINARY_API_KEY!,
+  api_secret: process.env.CLOUDINARY_API_SECRET!,
 });
 
 export async function PATCH(
@@ -36,50 +42,61 @@ export async function PATCH(
         { status: 401 }
       );
     }
-
-    const chapter = await db.chapter.update({
-      where: {
-        id: chapterId,
-        courseId: courseId,
-      },
-      data: reqBody,
-    });
-
-    if (!chapter) {
-      return NextResponse.json(
-        { message: "chapter updated Failed!" },
-        { status: 500 }
-      );
+    if (!reqBody.videoUrl) {
+      const chapter = await db.chapter.update({
+        where: {
+          id: chapterId,
+          courseId: courseId,
+        },
+        data: reqBody,
+      });
+      if (!chapter) {
+        return NextResponse.json(
+          { message: "chapter updated Failed!" },
+          { status: 500 }
+        );
+      }
     }
 
     if (reqBody.videoUrl) {
       try {
-        const existingMuxdata = await db.muxData.findFirst({
+        const chapter = await db.chapter.update({
+          where: {
+            id: chapterId,
+            courseId: courseId,
+          },
+          data: {
+            videoUrl: reqBody.videoUrl,
+          },
+        });
+        if (!chapter) {
+          return NextResponse.json(
+            { message: "chapter updated Failed!" },
+            { status: 500 }
+          );
+        }
+
+        const existingCloudinaryData = await db.cloudinaryData.findFirst({
           where: {
             chapterId: params.chapterId,
           },
         });
 
-        if (existingMuxdata) {
-          await mux.video.assets.delete(existingMuxdata.assetId);
-          await db.muxData.delete({
+        if (existingCloudinaryData) {
+          await cloudinary.uploader.destroy(existingCloudinaryData?.publicId!);
+          await db.cloudinaryData.delete({
             where: {
-              id: existingMuxdata.id,
+              id: existingCloudinaryData.id,
             },
           });
         }
 
-        const asset = await mux.video.assets.create({
-          input: reqBody.videoUrl,
-          playback_policy: ["public"],
-          encoding_tier: "baseline",
-        });
-
-        await db.muxData.create({
+        await db.cloudinaryData.create({
           data: {
             chapterId: params.chapterId,
-            assetId: asset.id,
-            playbackId: asset.playback_ids?.[0]?.id,
+            assetId: reqBody.assetId,
+            publicId: reqBody.publicId,
+            playbackUrl: reqBody.playbackUrl,
           },
         });
       } catch (error) {
@@ -132,12 +149,12 @@ export async function DELETE(
         id: params.chapterId,
       },
       include: {
-        muxData: {},
+        cloudinaryData: {},
       },
     });
 
     if (chapter?.videoUrl) {
-      await mux.video.assets.delete(chapter.muxData?.assetId || "");
+      await cloudinary.uploader.destroy(chapter.cloudinaryData?.assetId || "");
     }
 
     await db.chapter.delete({

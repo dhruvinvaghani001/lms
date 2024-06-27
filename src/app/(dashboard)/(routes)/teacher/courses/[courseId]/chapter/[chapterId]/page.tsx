@@ -29,7 +29,7 @@ const Chapterpage = async ({
       courseId: params.courseId,
     },
     include: {
-      muxData: {},
+      cloudinaryData: true,
     },
   });
 
@@ -113,7 +113,7 @@ const Chapterpage = async ({
                   courseId={params.courseId}
                   chapterId={params.chapterId}
                   videoUrl={chapter.videoUrl}
-                  muxData={chapter.muxData || null}
+                  cloudinrayData={chapter?.cloudinaryData || null}
                 />
               </div>
             </div>

@@ -1,11 +1,11 @@
 "use client";
 import { Loader2, Lock } from "lucide-react";
 import React, { useState } from "react";
-import MuxPlayer from "@mux/mux-player-react";
-import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { CldVideoPlayer } from "next-cloudinary";
+import "next-cloudinary/dist/cld-video-player.css";
 
 interface VideoPlayerProps {
   isLocked: boolean;
@@ -62,13 +62,13 @@ const VideoPlayer = ({
         </div>
       )}
       {!isLocked && (
-        <MuxPlayer
-          playbackId={playbackId || ""}
-          title={title}
-          className={cn(!ready && "hidden")}
-          onCanPlay={() => setReady(true)}
+        <CldVideoPlayer
           onEnded={onEnd}
           autoPlay
+          onPlay={() => setReady(true)}
+          width="1920"
+          height="1080"
+          src={playbackId!}
         />
       )}
     </div>

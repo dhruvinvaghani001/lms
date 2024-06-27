@@ -76,15 +76,16 @@ export async function DELETE(
       include: {
         chapters: {
           include: {
-            muxData: true,
+            cloudinaryData: {},
           },
         },
       },
     });
+
     if (courseOwner) {
       for (const chapter of courseOwner?.chapters) {
-        if (chapter.muxData?.assetId) {
-          await mux.video.assets.delete(chapter.muxData?.assetId);
+        if (chapter.cloudinaryData?.assetId) {
+          await mux.video.assets.delete(chapter.cloudinaryData?.publicId!);
         }
       }
     }

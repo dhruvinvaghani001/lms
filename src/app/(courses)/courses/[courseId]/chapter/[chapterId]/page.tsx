@@ -63,8 +63,8 @@ const page = async ({
   const {
     chapter,
     course,
-    muxData,
     attchmensts,
+    clodinaryData,
     nextChapter,
     userProgrss,
     purchase,
@@ -92,7 +92,7 @@ const page = async ({
         <div className="">
           <VideoPlayer
             isLocked={isLocked}
-            playbackId={muxData?.playbackId}
+            playbackId={clodinaryData?.publicId}
             courseId={params.courseId}
             chapterId={params.chapterId}
             nextChapterId={nextChapter?.id}
