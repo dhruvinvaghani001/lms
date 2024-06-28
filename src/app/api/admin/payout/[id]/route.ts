@@ -16,7 +16,8 @@ export async function PATCH(
 ) {
   try {
     const { userId } = auth();
-
+    console.log("id");
+    console.log(params.id);
     if (!userId) {
       return NextResponse.json(
         { message: "Unauthenticated user" },
@@ -94,6 +95,7 @@ export async function PATCH(
           },
           data: { razorpayPayoutId: response.data.id },
         });
+        console.log(updatePayoutRequest);
       })
       .catch(async (error) => {
         console.error(
@@ -113,49 +115,8 @@ export async function PATCH(
   } catch (error) {
     console.log("error while payouting from admin side!", error);
     return NextResponse.json(
-      { message: "Internal server Error" },
+      { message: "Internal server Error", error: error },
       { status: 500 }
     );
   }
 }
-
-// export async function POST(request) {
-//   const { amount, accountNumber, ifsc, name, mode } = await request.json();
-
-//   const payoutData = {
-//     account_number: process.env.RAZORPAY_ACCOUNT_NUMBER!,
-//     amount: amount,
-//     currency: "INR",
-//     mode: "NEFT",
-//     purpose: "payout",
-//     fund_account: {
-//       account_type: "bank_account",
-//       bank_account: {
-//         name: "Gaurav Kumar",
-//         ifsc: "HDFC0001234",
-//         account_number: "1121431121541121",
-//       },
-//       contact: {
-//         name: "Gaurav Kumar",
-//         email: "gaurav.kumar@example.com",
-//         contact: "9876543210",
-//         type: "vendor",
-//         reference_id: "Acme Contact ID 12345",
-//       },
-//     },
-//     queue_if_low_balance: true,
-//     reference_id: "Acme Transaction ID 12345",
-//     narration: "Acme Corp Fund Transfer",
-//   };
-
-//   const payout = await razorpay.payouts.create(payoutData);
-
-//   try {
-//     const payout = await razorpay.payouts.create(payoutData);
-//     return new Response(JSON.stringify(payout), { status: 200 });
-//   } catch (error) {
-//     return new Response(JSON.stringify({ message: error.message }), {
-//       status: 500,
-//     });
-//   }
-// }
