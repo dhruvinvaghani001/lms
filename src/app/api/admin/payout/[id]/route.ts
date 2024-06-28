@@ -72,6 +72,8 @@ export async function PATCH(
         },
       },
       queue_if_low_balance: true,
+      reference_id: "Acme Transaction ID 12345",
+      narration: "Acme Corp Fund Transfer",
     };
     const APIauth = Buffer.from(
       `${process.env.RAZORPAY_KEY_ID!}:${process.env.RAZORPAY_KEY_SECRET}`
@@ -85,6 +87,7 @@ export async function PATCH(
         },
       })
       .then(async (response) => {
+        console.log(response);
         const updatePayoutRequest = await db.payoutRequest.update({
           where: {
             id: params.id,
