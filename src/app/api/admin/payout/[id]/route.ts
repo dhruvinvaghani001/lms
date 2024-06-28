@@ -79,43 +79,49 @@ export async function PATCH(
     ).toString("base64");
     console.log("payouts");
     console.log(payoutData);
+    console.log("apiauth");
+    console.log(APIauth);
+    try {
+      const response = await axios.post(
+        "https://api.razorpay.com/v1/payouts",
+        payoutData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Basic ${APIauth}`,
+          },
+        }
+      );
 
-    axios
-      .post("https://api.razorpay.com/v1/payouts", payoutData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Basic ${APIauth}`,
+      console.log("Response");
+      console.log(response);
+
+      const updatePayoutRequest = await db.payoutRequest.update({
+        where: {
+          id: params.id,
         },
-      })
-      .then(async (response) => {
-        console.log("Response");
-        console.log(response);
-        const updatePayoutRequest = await db.payoutRequest.update({
-          where: {
-            id: params.id,
-          },
-          data: { razorpayPayoutId: response.data.id },
-        });
-        console.log("update payouts");
-        console.log(updatePayoutRequest);
-        return NextResponse.json(
-          { message: "Status updated" },
-          { status: 200 }
-        );
-      })
-      .catch(async (error) => {
-        console.error(
-          "Error creating payout:",
-          error.response ? error.response.data : error.message
-        );
-        const updatePayoutRequest = await db.payoutRequest.update({
-          where: {
-            id: params.id,
-          },
-          data: { status: Status.Faild },
-        });
-        return NextResponse.json({ message: "payout error!" }, { status: 500 });
+        data: { razorpayPayoutId: response.data.id },
       });
+
+      console.log("update payouts");
+      console.log(updatePayoutRequest);
+
+      return NextResponse.json({ message: "Status updated" }, { status: 200 });
+    } catch (error) {
+      console.error(
+        "Error creating payout:",
+        error?.response ? error?.response?.data : error.message
+      );
+
+      const updatePayoutRequest = await db.payoutRequest.update({
+        where: {
+          id: params.id,
+        },
+        data: { status: Status.Faild },
+      });
+
+      return NextResponse.json({ message: "payout error!" }, { status: 500 });
+    }
     return NextResponse.json({ message: "" }, { status: 200 });
   } catch (error) {
     console.log("error while payouting from admin side!", error);
