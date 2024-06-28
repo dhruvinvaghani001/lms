@@ -116,6 +116,7 @@ export async function PATCH(
         });
         return NextResponse.json({ message: "payout error!" }, { status: 500 });
       });
+    return NextResponse.json({ message: "" }, { status: 200 });
   } catch (error) {
     console.log("error while payouting from admin side!", error);
     return NextResponse.json(
