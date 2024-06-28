@@ -106,7 +106,7 @@ export async function PATCH(
       console.log("update payouts");
       console.log(updatePayoutRequest);
 
-      return NextResponse.json({ message: "Status updated" }, { status: 200 });
+      return NextResponse.json({ message: "Payout created!" }, { status: 200 });
     } catch (error) {
       console.error("Error creating payout:", error);
 
@@ -117,7 +117,10 @@ export async function PATCH(
         data: { status: Status.Faild },
       });
 
-      return NextResponse.json({ message: "payout error!" }, { status: 500 });
+      return NextResponse.json(
+        { message: "payout Not Generated!" },
+        { status: 500 }
+      );
     }
     return NextResponse.json({ message: "" }, { status: 200 });
   } catch (error) {

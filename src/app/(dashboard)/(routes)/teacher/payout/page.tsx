@@ -10,6 +10,12 @@ import { redirect } from "next/navigation";
 import MakePayoutReqeust from "./_components/MakePayoutReqeust";
 import { DataTable } from "../../admin/_components/DataTable";
 import { columns } from "./_components/Columns";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Teacher Payout",
+  description: "teacher payout to withdraw payments for teacher",
+};
 
 const page = async () => {
   const { userId } = auth();

@@ -29,10 +29,10 @@ const PayoutAction = ({
         `/api/admin/payout/${payoutRequestId}`,
         { amount: payoutRequestAmount, bank: bank, contact: contact }
       );
+      router.push("/admin");
       router.refresh();
       toast.success(response.data.message);
     } catch (error) {
-      console.log("onaccept some thing went wwrong");
       toast.error("Something went Wrong!");
     }
   };
