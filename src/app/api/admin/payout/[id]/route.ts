@@ -16,8 +16,6 @@ export async function PATCH(
 ) {
   try {
     const { userId } = auth();
-    console.log("id");
-    console.log(params.id);
     if (!userId) {
       return NextResponse.json(
         { message: "Unauthenticated user" },
@@ -79,6 +77,8 @@ export async function PATCH(
     const APIauth = Buffer.from(
       `${process.env.RAZORPAY_KEY_ID!}:${process.env.RAZORPAY_KEY_SECRET}`
     ).toString("base64");
+    console.log("payouts");
+    console.log(payoutData);
 
     axios
       .post("https://api.razorpay.com/v1/payouts", payoutData, {
@@ -88,6 +88,7 @@ export async function PATCH(
         },
       })
       .then(async (response) => {
+        console.log("Response");
         console.log(response);
         const updatePayoutRequest = await db.payoutRequest.update({
           where: {
@@ -95,7 +96,12 @@ export async function PATCH(
           },
           data: { razorpayPayoutId: response.data.id },
         });
+        console.log("update payouts");
         console.log(updatePayoutRequest);
+        return NextResponse.json(
+          { message: "Status updated" },
+          { status: 200 }
+        );
       })
       .catch(async (error) => {
         console.error(
@@ -110,8 +116,6 @@ export async function PATCH(
         });
         return NextResponse.json({ message: "payout error!" }, { status: 500 });
       });
-
-    return NextResponse.json({ message: "Status updated" }, { status: 200 });
   } catch (error) {
     console.log("error while payouting from admin side!", error);
     return NextResponse.json(
