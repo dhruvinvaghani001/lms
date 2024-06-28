@@ -108,10 +108,7 @@ export async function PATCH(
 
       return NextResponse.json({ message: "Status updated" }, { status: 200 });
     } catch (error) {
-      console.error(
-        "Error creating payout:",
-        error?.response ? error?.response?.data : error.message
-      );
+      console.error("Error creating payout:", error);
 
       const updatePayoutRequest = await db.payoutRequest.update({
         where: {
