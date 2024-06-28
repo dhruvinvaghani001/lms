@@ -14,7 +14,9 @@ const page = async () => {
     redirect("/");
   }
 
-  const payoutRequestData = await db.payoutRequest.findMany({});
+  const payoutRequestData = await db.payoutRequest.findMany({
+    orderBy: { createdAt: "desc" },
+  });
 
   const data = await Promise.all(
     payoutRequestData.map(async (item) => {

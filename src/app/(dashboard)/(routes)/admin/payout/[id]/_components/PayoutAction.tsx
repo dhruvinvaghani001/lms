@@ -29,11 +29,13 @@ const PayoutAction = ({
         `/api/admin/payout/${payoutRequestId}`,
         { amount: payoutRequestAmount, bank: bank, contact: contact }
       );
+      toast.success(response.data.message);
       router.push("/admin");
       router.refresh();
-      toast.success(response.data.message);
     } catch (error) {
       toast.error("Something went Wrong!");
+      router.push("/admin");
+      router.refresh();
     }
   };
   const onReject = async () => {
@@ -41,11 +43,14 @@ const PayoutAction = ({
       const response = await axios.patch(
         `/api/admin/payout/${payoutRequestId}/reject`
       );
-      router.refresh();
       toast.success(response.data.message);
+      router.push("/admin");
+      router.refresh();
     } catch (error) {
       console.log("on reject payout request error");
       toast.error("Something Went Wrong");
+      router.push("/admin");
+      router.refresh();
     }
   };
 
