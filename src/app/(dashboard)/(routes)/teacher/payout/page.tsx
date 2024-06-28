@@ -9,7 +9,7 @@ import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import MakePayoutReqeust from "./_components/MakePayoutReqeust";
 import { DataTable } from "../../admin/_components/DataTable";
-import { columns } from "../../admin/_components/columns";
+import { columns } from "./_components/Columns";
 
 const page = async () => {
   const { userId } = auth();

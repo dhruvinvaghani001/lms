@@ -86,31 +86,4 @@ export const columns: ColumnDef<PayoutReqeust>[] = [
       );
     },
   },
-  {
-    id: "actions",
-    cell: ({ row }) => {
-      const { id, status } = row.original;
-      if (status === Status.Faild || status === Status.Success) {
-        return <></>;
-      }
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="">
-              <span className="sr-only">Open Menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <Link href={`/admin/payout/${id}`}>
-              <DropdownMenuItem className="flex gap-4">
-                <PencilIcon className="h-4 w-4" />
-                Edit
-              </DropdownMenuItem>
-            </Link>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
 ];

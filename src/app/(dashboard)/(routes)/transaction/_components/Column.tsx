@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import formatPrice from "@/lib/formatPrice";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
@@ -38,6 +39,11 @@ export const columns: ColumnDef<Course>[] = [
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
+    },
+    cell: ({ row }) => {
+      const price = parseFloat(row.getValue("priceOfPurchase"));
+      const formatedPrice = formatPrice(price);
+      return <div>{formatedPrice}</div>;
     },
   },
   {

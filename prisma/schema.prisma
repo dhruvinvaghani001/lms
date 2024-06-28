@@ -163,8 +163,9 @@ model PayoutRequest {
   id     String @id @default(uuid())
   userId String
 
-  amount Float
-  status Status
+  amount           Float
+  status           Status
+  razorpayPayoutId String? @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -12,12 +12,14 @@ interface PayoutActionProps {
   bank: BankDetail;
   contact: ContactDetail;
   payoutRequestId: string;
+  payoutRequestAmount: number;
 }
 
 const PayoutAction = ({
   bank,
   contact,
   payoutRequestId,
+  payoutRequestAmount,
 }: PayoutActionProps) => {
   const router = useRouter();
 
@@ -25,26 +27,25 @@ const PayoutAction = ({
     try {
       const response = await axios.patch(
         `/api/admin/payout/${payoutRequestId}`,
-        { status: Status.Success }
+        { amount: payoutRequestAmount, bank: bank, contact: contact }
       );
       router.refresh();
       toast.success(response.data.message);
-    } catch (error:any) {
+    } catch (error) {
       console.log("onaccept some thing went wwrong");
-      toast.error(error.response.data.message);
+      toast.error("Something went Wrong!");
     }
   };
   const onReject = async () => {
     try {
       const response = await axios.patch(
-        `/api/admin/payout/${payoutRequestId}`,
-        { status: Status.Faild }
+        `/api/admin/payout/${payoutRequestId}/reject`
       );
       router.refresh();
       toast.success(response.data.message);
-    } catch (error:any) {
-      console.log("onaccept some thing went wwrong");
-      toast.error(error.response.data.message);
+    } catch (error) {
+      console.log("on reject payout request error");
+      toast.error("Something Went Wrong");
     }
   };
 
