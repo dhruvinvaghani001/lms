@@ -1,16 +1,8 @@
 import { logo } from "@/assets";
-import {
-  BarChartHorizontal,
-  BookDashed,
-  Compass,
-  List,
-  PanelsLeftBottom,
-} from "lucide-react";
+
 import Image from "next/image";
-import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { redirect } from "next/navigation";
 import React from "react";
-import { cn } from "@/lib/utils";
 import { Chapter, Course, UserProgress } from "@prisma/client";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";

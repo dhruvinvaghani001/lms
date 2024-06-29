@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import formatPrice from "@/lib/formatPrice";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import Link from "next/link";
 
 type Course = {

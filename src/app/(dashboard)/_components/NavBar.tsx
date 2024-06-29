@@ -2,7 +2,7 @@
 import React from "react";
 import MobileSidebar from "./MobileSidebar";
 import { UserButton } from "@clerk/nextjs";
-import { ExternalLink, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";

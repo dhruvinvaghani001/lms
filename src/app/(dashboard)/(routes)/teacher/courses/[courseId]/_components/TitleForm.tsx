@@ -10,7 +10,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -18,9 +17,7 @@ import { Button } from "@/components/ui/button";
 import { PenLine } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
-import Link from "next/link";
 import toast from "react-hot-toast";
-import { db } from "@/lib/db";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 

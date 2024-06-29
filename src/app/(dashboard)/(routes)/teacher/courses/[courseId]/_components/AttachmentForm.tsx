@@ -12,9 +12,7 @@ import toast from "react-hot-toast";
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { Textarea } from "@/components/ui/textarea";
 import FielUpload from "@/components/FielUpload";
-import Image from "next/image";
 import { Attachment } from "@prisma/client";
 
 interface AttchmentFormProps {

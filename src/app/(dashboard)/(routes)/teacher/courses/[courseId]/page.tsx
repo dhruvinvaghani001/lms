@@ -19,7 +19,6 @@ import PriceForm from "./_components/PriceForm";
 import AttchmentForm from "./_components/AttachmentForm";
 import ChapterForm from "./_components/ChapterForm";
 import CourseAction from "./_components/CourseAction";
-import { Course } from "@prisma/client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PageNavigation } from "./_components/BreadCrumb";

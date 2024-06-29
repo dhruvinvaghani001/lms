@@ -21,7 +21,6 @@ import toast from "react-hot-toast";
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { Textarea } from "@/components/ui/textarea";
 import { Combobox } from "@/components/ui/combobox";
 
 interface CategoryFormProps {

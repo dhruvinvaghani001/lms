@@ -3,7 +3,7 @@ import { ConfirmModal } from "@/components/modal/ConfirmModal";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Trash } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
 

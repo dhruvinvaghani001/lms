@@ -10,7 +10,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
@@ -21,7 +20,6 @@ import toast from "react-hot-toast";
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 
 import formatPrice from "@/lib/formatPrice";

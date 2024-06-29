@@ -7,7 +7,7 @@ import VideoPlayer from "./_components/VideoPlayer";
 import Preview from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapter/[chapterId]/_components/Preview";
 import EnrollButton from "./_components/EnrollButton";
 import CourseProgressButton from "./_components/CourseProgressButton";
-import { Metadata, ResolvingMetadata } from "next";
+import { ResolvingMetadata } from "next";
 import { db } from "@/lib/db";
 
 export async function generateMetadata(

@@ -5,7 +5,6 @@ import { BankDetail, ContactDetail } from "@prisma/client";
 import axios from "axios";
 import React from "react";
 import toast from "react-hot-toast";
-import { Status } from "@prisma/client";
 import { useRouter } from "next/navigation";
 
 interface PayoutActionProps {

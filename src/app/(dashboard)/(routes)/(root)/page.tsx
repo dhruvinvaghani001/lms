@@ -1,17 +1,8 @@
-import { db } from "@/lib/db";
 import CourseList from "../search/_components/CourseList";
 import { auth } from "@clerk/nextjs/server";
-import { getUserProgress } from "@/actions/get-userprogress";
 import { redirect } from "next/navigation";
 import { getPurchaseCourses } from "@/actions/get-puchase-course";
-import {
-  CheckCircle,
-  CircleCheck,
-  CircleCheckBig,
-  CircleChevronLeft,
-  Clock2,
-} from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { CheckCircle, Clock2 } from "lucide-react";
 import StatsCard from "./_components/StatsCard";
 import { Metadata } from "next";
 

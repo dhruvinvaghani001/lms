@@ -2,15 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Status } from "@prisma/client";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, PencilIcon } from "lucide-react";
-import Link from "next/link";
+import { ArrowUpDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import formatPrice from "@/lib/formatPrice";
 

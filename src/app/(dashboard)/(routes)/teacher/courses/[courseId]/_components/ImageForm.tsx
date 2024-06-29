@@ -4,15 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { ImageIcon, PenLine, PlusCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -21,7 +12,6 @@ import toast from "react-hot-toast";
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { Textarea } from "@/components/ui/textarea";
 import FielUpload from "@/components/FielUpload";
 import Image from "next/image";
 
