@@ -82,6 +82,12 @@ export async function DELETE(
         },
       },
     });
+    if (!courseOwner) {
+      return NextResponse.json(
+        { message: "Unauthenticated User" },
+        { status: 401 }
+      );
+    }
 
     if (courseOwner) {
       for (const chapter of courseOwner?.chapters) {
@@ -89,12 +95,6 @@ export async function DELETE(
           await cloudinary.uploader.destroy(chapter.cloudinaryData?.publicId);
         }
       }
-    }
-    if (!courseOwner) {
-      return NextResponse.json(
-        { message: "Unauthenticated User" },
-        { status: 401 }
-      );
     }
 
     await db.course.delete({

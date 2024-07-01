@@ -165,7 +165,7 @@ export async function DELETE(
       },
     });
 
-    if (!publishedChapterInCourse.length) {
+    if (publishedChapterInCourse.length === 0) {
       await db.course.update({
         where: {
           id: params.courseId,
@@ -174,9 +174,13 @@ export async function DELETE(
           isPublished: false,
         },
       });
+      return NextResponse.json(
+        { message: "chapter deleted & Due to no Chapters course unpublished!" },
+        { status: 200 }
+      );
     }
 
-    return NextResponse.json({ message: "chapter ddeleted!" }, { status: 200 });
+    return NextResponse.json({ message: "chapter deleted!" }, { status: 200 });
   } catch (error) {
     console.log("delete chapter error :", error);
     return NextResponse.json(
