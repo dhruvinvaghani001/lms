@@ -24,16 +24,20 @@ const ChapterAction = ({
 
   const onPublish = async () => {
     try {
-      const response = await axios.patch(
-        `/api/courses/${courseId}/chapter/${chapterId}`,
-        { isPublished: !isPublished }
-      );
-      console.log(response);
-      toast.success(response.data.message);
-      console.log(response);
+      let response = null;
+      if (isPublished) {
+        response = await axios.patch(
+          `/api/courses/${courseId}/chapter/${chapterId}/unpublish`
+        );
+      } else {
+        response = await axios.patch(
+          `/api/courses/${courseId}/chapter/${chapterId}/publish`
+        );
+      }
+      toast.success(response?.data.message);
       router.refresh();
-    } catch (error) {
-      toast.error("Something went wrong!");
+    } catch (error:any) {
+      toast.error(error?.response?.data?.message);
     }
   };
 

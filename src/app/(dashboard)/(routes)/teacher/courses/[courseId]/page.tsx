@@ -22,6 +22,7 @@ import CourseAction from "./_components/CourseAction";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PageNavigation } from "./_components/BreadCrumb";
+import { number } from "zod";
 
 const page = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -48,6 +49,8 @@ const page = async ({ params }: { params: { courseId: string } }) => {
     },
   });
 
+  const publishedChapters = course?.chapters.filter((item) => item.isPublished);
+
   const categories = await db.category.findMany({
     orderBy: {
       name: "asc",
@@ -64,13 +67,17 @@ const page = async ({ params }: { params: { courseId: string } }) => {
     course.categoryId,
     course.imageUrl,
     course.price,
+    publishedChapters?.length,
   ];
   const totalFields = requiredFields.length;
-  const completedFields = requiredFields.filter((item) => item !== null).length;
+  const completedFields = requiredFields.filter((item) => {
+    if (typeof item === "number") {
+      return item != 0;
+    }
+    return item !== null;
+  }).length;
 
   const isCompleted = requiredFields.every(Boolean);
-
-  console.log(completedFields);
 
   return (
     <div className="">

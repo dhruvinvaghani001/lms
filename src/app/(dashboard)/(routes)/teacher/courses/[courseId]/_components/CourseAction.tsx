@@ -19,19 +19,19 @@ const CourseAction = ({
   disabled,
 }: ChapterActionProps) => {
   const router = useRouter();
-
   const onPublish = async () => {
     try {
-      const response = await axios.patch(`/api/courses/${courseId}`, {
-        isPublished: !isPublished,
-      });
-      console.log(response);
+      let response = null;
+      if (isPublished) {
+        response = await axios.patch(`/api/courses/${courseId}/unpublish`);
+      } else {
+        response = await axios.patch(`/api/courses/${courseId}/publish`);
+      }
       toast.success(response.data.message);
-      console.log(response);
       router.refresh();
-    } catch (error) {
-      console.log("publish error:", error);
-      toast.error("Something Went wrong!");
+    } catch (error:any) {
+      console.log("publish error:");
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -43,9 +43,9 @@ const CourseAction = ({
       toast.success(resposne?.data?.message);
       router.push("/teacher/courses");
       router.refresh();
-    } catch (error) {
+    } catch (error:any) {
       console.log("delete chapter error:", error);
-      toast.error("Something went Wrong!");
+      toast.error(error?.response?.data?.message);
     }
   };
 
