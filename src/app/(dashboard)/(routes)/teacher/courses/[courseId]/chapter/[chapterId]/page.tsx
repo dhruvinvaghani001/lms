@@ -46,7 +46,6 @@ const Chapterpage = async ({
     redirect(`/teacher/courses`);
   }
 
-  console.log(chapter);
 
   const requiredFields = [chapter.title, chapter.description, chapter.videoUrl];
   const totalFields = requiredFields.length;

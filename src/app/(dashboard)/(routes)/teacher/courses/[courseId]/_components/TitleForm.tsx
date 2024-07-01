@@ -53,7 +53,6 @@ const TitleForm = ({ title, courseId }: TitleFormProps) => {
     try {
       const response = await axios.patch(`/api/courses/${courseId}`, values);
       toast.success(response.data.message);
-      console.log(response);
       toggleEdit();
       router.refresh();
     } catch (error) {

@@ -37,7 +37,6 @@ const CourseProgressButton = ({
       toast.success("Progress updated");
       router.refresh();
     } catch (error) {
-      console.log("course progress update error", error);
       toast.error("Something Went Wrong!");
     } finally {
       setIsLoading(false);

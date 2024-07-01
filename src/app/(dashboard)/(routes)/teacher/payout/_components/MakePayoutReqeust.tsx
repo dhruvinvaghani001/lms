@@ -16,7 +16,6 @@ const MakePayoutReqeust = ({ wallet }: MakePayoutrequestProps) => {
   const onMakePayoutRequest = async () => {
     try {
       const response = await axios.post("/api/payout", { amount: wallet });
-      console.log(response);
       toast.success(response.data.message);
       router.refresh();
     } catch (error:any) {

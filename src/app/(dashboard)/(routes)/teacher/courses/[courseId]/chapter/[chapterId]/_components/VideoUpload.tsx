@@ -16,11 +16,6 @@ export default function FileUploadForm({ onChange }: FileUploadFormProps) {
   ) => {
     if (results.info && typeof results.info !== "string") {
       const { secure_url, playback_url, public_id, asset_id } = results.info;
-
-      console.log("hello");
-      console.log(playback_url);
-      console.log(results.info);
-
       onChange({ secure_url, playback_url, public_id, asset_id });
       widget.close();
     } else {

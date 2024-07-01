@@ -50,7 +50,6 @@ const AttchmentForm = ({ attachments, courseId }: AttchmentFormProps) => {
         values
       );
       toast.success(response.data.message);
-      console.log(response);
       toggleEdit();
       router.refresh();
     } catch (error) {

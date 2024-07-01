@@ -65,7 +65,6 @@ const DescriptionForm = ({
         values
       );
       toast.success(response.data.message);
-      console.log(response);
       toggleEdit();
       router.refresh();
     } catch (error) {

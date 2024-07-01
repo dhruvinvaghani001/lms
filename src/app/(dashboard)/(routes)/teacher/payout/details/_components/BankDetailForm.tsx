@@ -50,7 +50,6 @@ const BankDetailForm = ({
       accountNumber: accountNumber,
     },
   });
-  console.log(isUpdate);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -64,8 +63,7 @@ const BankDetailForm = ({
       router.refresh();
       // router.push("/teacher/payout");
     } catch (error:any) {
-      console.log(error);
-      toast.error("something went wrong!");
+      toast.error("Something Went Wrong!");
     }
   }
 

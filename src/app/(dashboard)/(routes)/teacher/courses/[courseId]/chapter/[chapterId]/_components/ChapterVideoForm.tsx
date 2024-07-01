@@ -65,11 +65,9 @@ const ChapterVideoForm = ({
         }
       );
       toast.success(response.data.message);
-      console.log(response);
       toggleEdit();
       router.refresh();
     } catch (error) {
-      console.log("Chapter update error", error);
       toast.error("Something went wrong!");
     }
   };

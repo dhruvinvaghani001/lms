@@ -66,13 +66,11 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
         values
       );
       toast.success(response.data.message);
-      console.log(response.data.data.chapter);
       setItems([...items, response.data.data.chapter]);
       toggleEdit();
       router.refresh();
       form.reset();
     } catch (error) {
-      console.log("chapter Added!", error);
       toast.error("Something went wrong!");
     }
   };
@@ -86,7 +84,6 @@ const ChapterForm = ({ chapters, courseId }: ChapterFormProps) => {
       toast.success(response.data?.message);
       router.refresh();
     } catch (error) {
-      console.log("Eror while reordring", error);
       toast.error("Something Went Wrong!");
     } finally {
       setLoading(false);

@@ -30,7 +30,6 @@ const CourseAction = ({
       toast.success(response.data.message);
       router.refresh();
     } catch (error:any) {
-      console.log("publish error:");
       toast.error(error?.response?.data?.message);
     }
   };
@@ -38,13 +37,11 @@ const CourseAction = ({
   const onDelete = async () => {
     try {
       const resposne = await axios.delete(`/api/courses/${courseId}`);
-      console.log(resposne);
 
       toast.success(resposne?.data?.message);
       router.push("/teacher/courses");
       router.refresh();
     } catch (error:any) {
-      console.log("delete chapter error:", error);
       toast.error(error?.response?.data?.message);
     }
   };

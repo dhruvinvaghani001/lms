@@ -50,8 +50,8 @@ const ImageForm = ({ imageUrl, courseId }: ImageFormProps) => {
       console.log(response);
       toggleEdit();
       router.refresh();
-    } catch (error) {
-      toast.error("Something went wrong!");
+    } catch (error:any) {
+      toast.error(error?.resposne?.data?.message);
     }
   };
 

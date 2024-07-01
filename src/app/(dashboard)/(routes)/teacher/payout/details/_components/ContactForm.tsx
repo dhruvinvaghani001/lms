@@ -64,7 +64,6 @@ const ContactForm = ({
       router.refresh();
       // router.push("/teacher/payout");
     } catch (error:any) {
-      console.log(error);
       toast.error("something went wrong!");
     }
   }

@@ -46,7 +46,6 @@ const PayoutAction = ({
       router.push("/admin");
       router.refresh();
     } catch (error) {
-      console.log("on reject payout request error");
       toast.error("Something Went Wrong");
       router.push("/admin");
       router.refresh();

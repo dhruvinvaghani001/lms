@@ -46,13 +46,12 @@ const ChapterAction = ({
       const resposne = await axios.delete(
         `/api/courses/${courseId}/chapter/${chapterId}`
       );
-      console.log(resposne);
 
       toast.success(resposne?.data?.message);
       router.refresh();
       router.push(`/teacher/courses/${courseId}/`);
-    } catch (error) {
-      toast.error("Somethign went wrong!");
+    } catch (error:any) {
+      toast.error(error?.response?.data?.message);
     }
   };
 

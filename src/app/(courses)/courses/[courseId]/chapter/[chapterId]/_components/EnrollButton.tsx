@@ -17,7 +17,6 @@ const EnrollButton = ({ price, courseId }: EnrollButtonProps) => {
     try {
       setIsLoading(true);
       const response = await axios.post(`/api/courses/${courseId}/checkout`);
-      console.log(response);
       window.location.assign(response.data.url);
     } catch (error) {
       toast.error("Something went wrong!");

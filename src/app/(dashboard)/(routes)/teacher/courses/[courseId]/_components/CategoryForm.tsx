@@ -52,14 +52,11 @@ const CategoryForm = ({ categoryId, courseId, options }: CategoryFormProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values);
       const response = await axios.patch(`/api/courses/${courseId}`, values);
       toast.success(response.data.message);
-      console.log(response);
       toggleEdit();
       router.refresh();
     } catch (error) {
-      console.log("title update error", error);
       toast.error("Something went Wrong!");
     }
   };
@@ -67,7 +64,6 @@ const CategoryForm = ({ categoryId, courseId, options }: CategoryFormProps) => {
   const selectedCategory = options.find(
     (option) => option.value === categoryId
   );
-  console.log(selectedCategory);
 
   return (
     <div>

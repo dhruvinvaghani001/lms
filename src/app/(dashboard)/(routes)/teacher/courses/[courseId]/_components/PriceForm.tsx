@@ -54,12 +54,10 @@ const PriceForm = ({ price, courseId }: PriceFormProps) => {
     try {
       const response = await axios.patch(`/api/courses/${courseId}`, values);
       toast.success(response.data.message);
-      console.log(response);
       toggleEdit();
       router.refresh();
-    } catch (error) {
-      console.log(" update error", error);
-      toast.error("Something went wrong!");
+    } catch (error:any) {
+      toast.error(error?.response?.data?.message);
     }
   };
 

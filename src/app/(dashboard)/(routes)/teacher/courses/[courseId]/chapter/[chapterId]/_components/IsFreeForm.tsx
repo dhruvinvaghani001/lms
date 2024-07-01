@@ -46,11 +46,9 @@ const IsFreeForm = ({ courseId, chapterId, isFree }: IsFreeFormProps) => {
         try {
             const response = await axios.patch(`/api/courses/${courseId}/chapter/${chapterId}`, values);
             toast.success(response.data.message);
-            console.log(response);
             toggleEdit();
             router.refresh();
         } catch (error: any) {
-            console.log("chapter update error", error);
             toast.error(error?.message);
         }
     }
