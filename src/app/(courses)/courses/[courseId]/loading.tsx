@@ -1,4 +1,4 @@
-import { Loader2 } from "lucide-react";
+"use client";
 import { useTheme } from "next-themes";
 import React from "react";
 import { Puff } from "react-loader-spinner";
