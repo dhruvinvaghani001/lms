@@ -15,7 +15,7 @@ interface CourseListProps {
 const CourseList = ({ items }: CourseListProps) => {
   return (
     <>
-      <div className="flex text-foreground justify-center ">
+      <div className="flex text-foreground justify-center mt-20">
         {items.length === 0 && <>Course Not Found</>}
       </div>
       <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
