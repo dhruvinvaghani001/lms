@@ -57,7 +57,7 @@ const Chart = ({ data }: ChartDataProps) => {
             content={<CustomTooltip />}
             coordinate={{ x: 100, y: 140 }}
           />
-          <Bar dataKey="revenue" fill="#136F63" />
+          <Bar dataKey="revenue" fill="#2563EB" />
         </BarChart>
       </ResponsiveContainer>
     </>
