@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# LMS - Learning Management System
 
-First, run the development server:
+## Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[🌎 Live Link](https://lms-rust-iota.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech-Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+[![Tech Stack](https://skillicons.dev/icons?i=react,next,mysql,prisma,nodejs)](https://skillicons.dev)
+## Features
 
-## Learn More
+### Multi-Teacher Support
+- **Collaborative Teaching**: Multiple teachers can publish courses, providing a variety of expertise and content.
+- **Course Management**: Easily create and manage courses, adding chapters and lessons to enhance the learning experience.
 
-To learn more about Next.js, take a look at the following resources:
+### Flexible Course Pricing
+- **Free and Paid Features**: Teachers can set chapters as free or paid, allowing students to access introductory content while providing in-depth lessons for those who purchase the course.
+- **Diverse Course Categories**: Courses are categorized into fields such as Engineering, Music, Photography, and Computer Science for easy navigation.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Student Dashboard
+- **Progress Tracking**: After purchasing a course, students have access to a personalized dashboard to track their learning progress and see completed chapters.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Payment Processing
+- **Stripe Integration**: A single Stripe account is used for secure transaction processing, ensuring all funds are directed to the super admin.
 
-## Deploy on Vercel
+### Teacher Payout System
+- **Payout Requests**: Teachers can submit payout requests based on their earnings, facilitating easy management of their income.
+- **Bank Details Submission**: Teachers must securely submit their bank details to receive payouts.
+- **Earnings Analytics**: Access analytics on course sales to monitor financial performance.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Payout Request Tracking
+- **Request Status Updates**: Teachers can view the status of their payout requests for transparency and assurance.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
